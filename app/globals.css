@@ -544,6 +544,7 @@ main { padding-bottom: 2.5rem; }
   vertical-align: top;
   padding: 0.5rem 0.65rem;
   border-bottom: 1px solid var(--border-subtle);
+  white-space: pre-wrap;
 }
 
 .k-table th {

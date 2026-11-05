@@ -29,6 +29,7 @@ npm start
 | `/papers/04-bahdanau-attention` | Neural Machine Translation by Jointly Learning to Align and Translate (2014) |
 | `/papers/05-transformer` | Attention Is All You Need (2017) |
 | `/papers/06-bert` | BERT: Pre-training of Deep Bidirectional Transformers for Language Understanding (2018) |
+| `/papers/07-gpt2` | Language Models are Unsupervised Multitask Learners (2019) |
 
 Previous and next follow the sent date, oldest to newest. Unknown slugs 404.
 
