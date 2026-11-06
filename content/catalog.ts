@@ -6,13 +6,14 @@ import { meta as attention } from "@/content/papers/04-bahdanau-attention/conten
 import { meta as transformer } from "@/content/papers/05-transformer/content";
 import { meta as bert } from "@/content/papers/06-bert/content";
 import { meta as gpt2 } from "@/content/papers/07-gpt2/content";
+import { meta as gpt3 } from "@/content/papers/08-gpt3/content";
 
 /**
  * Every paper's metadata. Interactive demos are registered separately in
  * `content/interactives.tsx` so the homepage does not load them.
  * Adding a paper: see README, "Adding a new paper".
  */
-export const papers: PaperMeta[] = [word2vec, glove, seq2seq, attention, transformer, bert, gpt2];
+export const papers: PaperMeta[] = [word2vec, glove, seq2seq, attention, transformer, bert, gpt2, gpt3];
 
 export function learningOrder(): PaperMeta[] {
   return [...papers].sort((a, b) => a.sent.localeCompare(b.sent) || a.number - b.number);
