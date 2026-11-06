@@ -362,3 +362,21 @@ export function Button({
     </button>
   );
 }
+
+export function Metrics({
+  metrics,
+}: {
+  metrics: { value: string; label: string; detail?: string; tone?: Tone }[];
+}) {
+  return (
+    <div className="k-metrics">
+      {metrics.map((metric) => (
+        <div key={metric.label} className="k-metric">
+          <div className={`k-metric-value${metric.tone ? ` tone-${metric.tone}` : ""}`}>{metric.value}</div>
+          <div className="k-metric-label">{metric.label}</div>
+          {metric.detail ? <div className="k-metric-detail">{metric.detail}</div> : null}
+        </div>
+      ))}
+    </div>
+  );
+}
