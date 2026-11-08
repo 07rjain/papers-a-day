@@ -32,6 +32,7 @@ npm start
 | `/papers/07-gpt2` | Language Models are Unsupervised Multitask Learners (2019) |
 | `/papers/08-gpt3` | Language Models are Few-Shot Learners (2020) |
 | `/papers/09-scaling-laws` | Scaling Laws for Neural Language Models (2020) |
+| `/papers/10-instructgpt` | Training language models to follow instructions with human feedback (2022) |
 
 Previous and next follow the sent date, oldest to newest. Unknown slugs 404.
 
