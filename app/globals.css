@@ -560,6 +560,46 @@ main { padding-bottom: 2.5rem; }
 .tone-warning { color: var(--text-warning); }
 .tone-danger { color: var(--text-danger); }
 
+.igpt-rank {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  margin: 10px 0;
+}
+
+.igpt-stage {
+  position: relative;
+  width: 100%;
+  min-height: 380px;
+  border-radius: 12px;
+  overflow: hidden;
+  background: #0b1020;
+}
+
+.igpt-stage canvas {
+  width: 100%;
+  height: auto;
+  display: block;
+  cursor: grab;
+  touch-action: none;
+}
+
+.igpt-legend {
+  position: absolute;
+  top: 10px;
+  right: 12px;
+  color: #cbd5e1;
+  font-size: 12px;
+  text-align: right;
+  line-height: 1.5;
+  pointer-events: none;
+}
+
+@media (max-width: 640px) {
+  .igpt-rank { grid-template-columns: 1fr; }
+  .igpt-legend { font-size: 11px; }
+}
+
 .k-metrics {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(8.5rem, 1fr));
