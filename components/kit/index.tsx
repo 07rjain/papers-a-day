@@ -363,6 +363,33 @@ export function Button({
   );
 }
 
+export function Equation({ label, children }: { label?: string; children?: ReactNode }) {
+  return (
+    <div className="k-equation">
+      <div className="k-equation-body">{children}</div>
+      {label ? <span className="k-equation-label">{label}</span> : null}
+    </div>
+  );
+}
+
+export function Frac({ num, den }: { num: ReactNode; den: ReactNode }) {
+  return (
+    <span className="k-frac">
+      <span className="k-frac-num">{num}</span>
+      <span className="k-frac-den">{den}</span>
+    </span>
+  );
+}
+
+export function Pow({ base, exp }: { base: ReactNode; exp: ReactNode }) {
+  return (
+    <span className="k-pow">
+      {base}
+      <sup>{exp}</sup>
+    </span>
+  );
+}
+
 export function Metrics({
   metrics,
 }: {
