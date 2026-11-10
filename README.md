@@ -34,6 +34,7 @@ npm start
 | `/papers/09-scaling-laws` | Scaling Laws for Neural Language Models (2020) |
 | `/papers/10-instructgpt` | Training language models to follow instructions with human feedback (2022) |
 | `/papers/11-chinchilla` | Training Compute-Optimal Large Language Models (2022) |
+| `/papers/12-lora` | LoRA: Low-Rank Adaptation of Large Language Models (2021) |
 
 Previous and next follow the sent date, oldest to newest. Unknown slugs 404.
 

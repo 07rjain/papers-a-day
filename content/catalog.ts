@@ -10,13 +10,14 @@ import { meta as gpt3 } from "@/content/papers/08-gpt3/content";
 import { meta as scaling } from "@/content/papers/09-scaling-laws/content";
 import { meta as instruct } from "@/content/papers/10-instructgpt/content";
 import { meta as chinchilla } from "@/content/papers/11-chinchilla/content";
+import { meta as lora } from "@/content/papers/12-lora/content";
 
 /**
  * Every paper's metadata. Interactive demos are registered separately in
  * `content/interactives.tsx` so the homepage does not load them.
  * Adding a paper: see README, "Adding a new paper".
  */
-export const papers: PaperMeta[] = [word2vec, glove, seq2seq, attention, transformer, bert, gpt2, gpt3, scaling, instruct, chinchilla];
+export const papers: PaperMeta[] = [word2vec, glove, seq2seq, attention, transformer, bert, gpt2, gpt3, scaling, instruct, chinchilla, lora];
 
 export function learningOrder(): PaperMeta[] {
   return [...papers].sort((a, b) => a.sent.localeCompare(b.sent) || a.number - b.number);
