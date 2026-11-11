@@ -23,8 +23,8 @@ export default function HomePage() {
       <section className="reading-path" aria-labelledby="path-heading">
         <h2 id="path-heading">How the papers connect</h2>
         <p>
-          One path, from the first idea to the latest. Read from 01 down to 12, or open any paper
-          on its own. Read and quiz marks stay in this browser.
+          One path, from the first idea to the latest. Read from 01 downward, or open any paper on
+          its own. Read and quiz marks stay in this browser.
         </p>
         <LearningPath />
       </section>
