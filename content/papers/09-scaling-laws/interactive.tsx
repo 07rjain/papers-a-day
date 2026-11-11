@@ -1,6 +1,7 @@
 "use client";
 
 import { Page, Section, Text, Callout, Segmented, Button, Table, Steps, LinkCards, Metrics, useState, useGrokTheme } from "grok/canvas";
+import { QuizSync } from "@/components/study/progress";
 
 // All formulas and constants below are the paper's own fitted values (Kaplan et al., 2020).
 // L(N) = (Nc / N)^aN, aN = 0.076, Nc = 8.8e13 non-embedding params (eq. 1.1)
@@ -179,6 +180,10 @@ export default function App() {
           value={nIdx}
           onChange={(v: string) => setNIdx(v)}
         />
+        <label>
+          Model size along the fitted curve
+          <input type="range" min={0} max={6} step={1} value={nIdx} onChange={(event) => setNIdx(event.target.value)} />
+        </label>
         {lawPlot()}
         <Table columns={["", "Selected model"]} rows={[
           ["Non-embedding parameters N", fmt(n)],
@@ -252,6 +257,7 @@ export default function App() {
         <Callout tone="info" lead="A later twist.">In 2022 DeepMind's Chinchilla paper revisited this and found models should get much more data than Kaplan suggested (roughly equal growth of N and D). The power-law idea held up; the exact split changed. That could be a future paper.</Callout>
       </Section>
 
+      <QuizSync slug="09-scaling-laws" picks={picks} answers={QUIZ.map((item) => item.answer)} />
       <Section heading="Check your understanding">
         {QUIZ.map((item: Q, k: number) => (
           <Section key={k} heading={`${k + 1}. ${item.q}`}>
@@ -267,7 +273,7 @@ export default function App() {
             )}
           </Section>
         ))}
-        <Text>Then tell me in chat, in your own words: if someone gave you 10x more compute to train a language model, how would this paper tell you to spend it, and why?</Text>
+        <Text>In your own words: if someone gave you 10x more compute to train a language model, how would this paper tell you to spend it, and why?</Text>
       </Section>
 
       <Section heading="Read it yourself">

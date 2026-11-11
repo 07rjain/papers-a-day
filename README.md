@@ -2,7 +2,7 @@
 
 A static reading site for learning one AI research paper a day. Each paper has a plain-English explanation, the original interactive demos and quiz, a question for the day, and a collapsible answer key.
 
-Built for [Rishabh](https://papers-a-day.subdomain.wtf). Next.js App Router, TypeScript, no extra Vercel config: `npm run build` produces the static pages.
+A public study site at [papers-a-day.subdomain.wtf](https://papers-a-day.subdomain.wtf). Next.js App Router, TypeScript, no extra Vercel config: `npm run build` produces the static pages.
 
 ## Develop
 

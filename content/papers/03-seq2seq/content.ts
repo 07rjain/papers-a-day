@@ -22,7 +22,7 @@ export const meta = {
       'It works with two networks as a pair. The first, called the encoder, reads the English one word at a time and squeezes the whole sentence into a single list of numbers. The second, called the decoder, starts from that list and writes the French one word at a time until it says "end of sentence". This was the first time a purely neural translator clearly beat the classic statistical systems, scoring 34.8 against 33.3 on a standard translation benchmark. A funny detail: just feeding the English in backwards made it a lot better.',
     ],
     [
-      "On your page you can step through the encoder and decoder, see why reversing the input helps, and compare two ways of picking the next word, greedy and beam search. There's a quiz at the end too.",
+      "On this page you can step through the encoder and decoder, see why reversing the input helps, and compare two ways of picking the next word, greedy and beam search. There's a quiz at the end too.",
     ],
   ],
   question:

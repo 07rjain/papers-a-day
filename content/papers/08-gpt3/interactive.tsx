@@ -1,6 +1,8 @@
 "use client";
 
 import { Page, Section, Text, Callout, Segmented, Button, Table, Steps, LinkCards, Metrics, useState, useGrokTheme } from "grok/canvas";
+import { PromptBuilder } from "@/components/viz/PromptBuilder";
+import { QuizSync } from "@/components/study/progress";
 
 // Demo 1: zero vs one vs few-shot on a toy symbol-cleaning + translation task.
 type ShotMode = "zero" | "one" | "few";
@@ -304,6 +306,11 @@ export default function App() {
         <Callout tone="info" lead="Where this leads.">GPT-2 opened the prompting era. GPT-3 made few-shot prompting a serious alternative to fine-tuning. Later work (InstructGPT, ChatGPT) adds alignment on top of this base.</Callout>
       </Section>
 
+      <Section heading="Play: build a few-shot prompt" caption="Toy prompt text. No model is called.">
+        <PromptBuilder />
+      </Section>
+
+      <QuizSync slug="08-gpt3" picks={picks} answers={QUIZ.map((item) => item.answer)} />
       <Section heading="Check your understanding">
         {QUIZ.map((item: Q, k: number) => (
           <Section key={k} heading={`${k + 1}. ${item.q}`}>
@@ -319,7 +326,7 @@ export default function App() {
             )}
           </Section>
         ))}
-        <Text>Then tell me in chat, in your own words, what is the difference between fine-tuning and few-shot (in-context) learning in this paper, and why might a bigger model be better at learning from just a few examples in the prompt?</Text>
+        <Text>In your own words, what is the difference between fine-tuning and few-shot (in-context) learning in this paper, and why might a bigger model be better at learning from just a few examples in the prompt?</Text>
       </Section>
 
       <Section heading="Read it yourself">

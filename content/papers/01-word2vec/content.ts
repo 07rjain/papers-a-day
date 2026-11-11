@@ -11,7 +11,7 @@ export const meta = {
   hook: "Words that show up in similar places end up with similar vectors, which is why king − man + woman lands near queen.",
   explanation: [
     [
-      "I picked the word2vec paper for you to start with: ",
+      "The reading path starts with ",
       {
         text: "Efficient Estimation of Word Representations in Vector Space",
         href: "https://arxiv.org/abs/1301.3781",

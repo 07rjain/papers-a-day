@@ -19,6 +19,7 @@ import {
   useRef,
 } from "grok/canvas";
 import type { BufferAttribute } from "three";
+import { QuizSync } from "@/components/study/progress";
 
 // The loss surface uses the paper's fitted formula (Approach 3):
 // L(N, D) = 1.69 + 406.4 / N^0.34 + 410.7 / D^0.28.
@@ -501,6 +502,7 @@ function VideoCard({ file, title, caption }: { file: string; title: string; capt
       <figcaption style={{ fontWeight: 600, marginBottom: 6 }}>{title}</figcaption>
       <video
         src={`/videos/11-chinchilla/${file}`}
+        preload="none"
         controls
         muted
         loop
@@ -548,10 +550,11 @@ const QUIZ: QuizItem[] = [
 
 export default function App() {
   const [bud, setBud] = useState<string>("gopher");
+  const [logC, setLogC] = useState(Math.log10(5.76e23));
   const [seek, setSeek] = useState<number>(0);
   const [st, setSt] = useState<{ lN: number; L: number }>({ lN: 12, L: 0 });
   const [picks, setPicks] = useState<(number | null)[]>(QUIZ.map(() => null));
-  const C = BUDGETS.find((item) => item.value === bud)!.C;
+  const C = Math.pow(10, logC);
   const N = Math.pow(10, st.lN);
   const D = C / (6 * N);
   const opt = bestLogN(C);
@@ -584,7 +587,26 @@ export default function App() {
           This surface is the paper&apos;s fitted loss for every combination of model size and training tokens. A compute budget lets you stand anywhere on the yellow line: a bigger model means fewer tokens, and vice versa. The white ball starts as a huge, under-trained model and rolls along the line to the lowest loss. Pick a budget and press Drop the ball.
         </Text>
         <div style={{ display: "flex", gap: 10, alignItems: "center", flexWrap: "wrap", margin: "8px 0" }}>
-          <Segmented options={BUDGETS.map((item) => ({ value: item.value, label: item.label }))} value={bud} onChange={(value: string) => setBud(value)} />
+          <Segmented
+            options={BUDGETS.map((item) => ({ value: item.value, label: item.label }))}
+            value={bud}
+            onChange={(value: string) => {
+              setBud(value);
+              const found = BUDGETS.find((item) => item.value === value);
+              if (found) setLogC(Math.log10(found.C));
+            }}
+          />
+          <label>
+            log10 compute {logC.toFixed(2)}
+            <input
+              type="range"
+              min={21}
+              max={24}
+              step={0.05}
+              value={logC}
+              onChange={(event) => setLogC(Number(event.target.value))}
+            />
+          </label>
           <Button label="Drop the ball" variant="primary" onClick={() => setSeek(seek + 1)} />
         </div>
         <LossLandscape C={C} seek={seek} onState={setSt} />
@@ -653,6 +675,7 @@ export default function App() {
         </Callout>
       </Section>
 
+      <QuizSync slug="11-chinchilla" picks={picks} answers={QUIZ.map((item) => item.answer)} />
       <Section heading="Quick quiz">
         {QUIZ.map((item, k) => (
           <Section key={item.q} heading={`${k + 1}. ${item.q}`}>
@@ -678,7 +701,7 @@ export default function App() {
           </Section>
         ))}
         <Text>
-          Then tell me in chat, in your own words: Gopher and Chinchilla used the same compute, so why did the smaller model win, and why does that matter even after training is done?
+          In your own words: Gopher and Chinchilla used the same compute, so why did the smaller model win, and why does that matter even after training is done?
         </Text>
       </Section>
 

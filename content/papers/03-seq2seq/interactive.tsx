@@ -1,6 +1,8 @@
 "use client";
 
 import { Page, Section, Text, Callout, Segmented, Button, Table, Steps, LinkCards, useState, useMemo, useGrokTheme } from "grok/canvas";
+import { Bottleneck3D } from "@/components/viz/Bottleneck3D";
+import { QuizSync } from "@/components/study/progress";
 
 type Pair = { src: string[]; tgt: string[] };
 const PAIRS: Pair[] = [
@@ -181,9 +183,14 @@ export default function App() {
           { title: "Long sentences and meaningful vectors", detail: "It handled long sentences surprisingly well, and its sentence vectors grouped by meaning: sensitive to word order, fairly unaffected by active vs passive voice." },
           { title: "Big for 2014", detail: "4 layers of 1,000 cells each, 384M parameters, an 80,000 word output vocabulary (unknown words became UNK), and about ten days of training on 8 GPUs." },
         ]} />
-        <Callout tone="warning" lead="The catch to remember.">Everything about the input has to fit through one fixed-size vector. The next paper in your path, Bahdanau's attention, lets the decoder look back at every input word instead.</Callout>
+        <Callout tone="warning" lead="The catch to remember.">Everything about the input has to fit through one fixed-size vector. The next paper on this path, Bahdanau's attention, lets the decoder look back at every input word instead.</Callout>
       </Section>
 
+      <Section heading="Play: the fixed-size vector" caption="Toy picture of the bottleneck. The cube does not grow.">
+        <Bottleneck3D />
+      </Section>
+
+      <QuizSync slug="03-seq2seq" picks={picks} answers={QUIZ.map((item) => item.answer)} />
       <Section heading="Check your understanding">
         {QUIZ.map((item: Q, qi: number) => (
           <Section key={qi} heading={`${qi + 1}. ${item.q}`}>
@@ -199,7 +206,7 @@ export default function App() {
             )}
           </Section>
         ))}
-        <Text>Then tell me in chat, in your own words, why squeezing the whole sentence into one vector could be a problem for long sentences. Explaining it yourself is the real test.</Text>
+        <Text>In your own words, why squeezing the whole sentence into one vector could be a problem for long sentences. Explaining it yourself is the real test.</Text>
       </Section>
 
       <Section heading="Read it yourself">

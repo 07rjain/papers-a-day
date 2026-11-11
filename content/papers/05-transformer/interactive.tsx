@@ -1,6 +1,8 @@
 "use client";
 
 import { Page, Section, Text, Callout, Segmented, Button, Table, Steps, LinkCards, useState, useGrokTheme } from "grok/canvas";
+import { TypedAttention } from "@/components/viz/TypedAttention";
+import { QuizSync } from "@/components/study/progress";
 
 const WORDS: string[] = ["the", "cat", "sat", "because", "it", "was", "tired"];
 const N = WORDS.length;
@@ -179,9 +181,14 @@ export default function App() {
           { title: "Position signal choice barely mattered", detail: "Learned position embeddings gave nearly identical results to the sine and cosine version; they kept sines hoping it works on longer sentences." },
           { title: "Works beyond translation", detail: "With little tuning, it did well on English constituency parsing (finding the grammar tree of a sentence)." },
         ]} />
-        <Callout tone="info" lead="Where this leads.">BERT keeps just the encoder half; GPT keeps just the decoder half with the mask. Both are coming up next in your path.</Callout>
+        <Callout tone="info" lead="Where this leads.">BERT keeps just the encoder half; GPT keeps just the decoder half with the mask. Both come next on this reading path.</Callout>
       </Section>
 
+      <Section heading="Play: type a sentence" caption="Toy letter-based scores. Not a trained model.">
+        <TypedAttention />
+      </Section>
+
+      <QuizSync slug="05-transformer" picks={picks} answers={QUIZ.map((item) => item.answer)} />
       <Section heading="Check your understanding">
         {QUIZ.map((item: Q, k: number) => (
           <Section key={k} heading={`${k + 1}. ${item.q}`}>
@@ -197,7 +204,7 @@ export default function App() {
             )}
           </Section>
         ))}
-        <Text>Then tell me in chat, in your own words, what a query, a key and a value each do in self-attention.</Text>
+        <Text>In your own words, what a query, a key and a value each do in self-attention.</Text>
       </Section>
 
       <Section heading="Read it yourself">

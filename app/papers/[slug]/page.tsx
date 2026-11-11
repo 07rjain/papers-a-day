@@ -3,7 +3,9 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { Explanation } from "@/components/site/Explanation";
 import { PaperNav } from "@/components/site/PaperNav";
+import { StudyStatus } from "@/components/study/progress";
 import { getPaper, learningOrder, paperNeighbors } from "@/content/catalog";
+import { keyIdeas } from "@/content/study";
 import { formatSent, padNumber } from "@/content/format";
 import { interactives } from "@/content/interactives";
 
@@ -53,6 +55,20 @@ export default async function PaperPage({ params }: { params: Promise<{ slug: st
       <p className="byline">
         {paper.authors} — {paper.year}
       </p>
+      <StudyStatus slug={paper.slug} />
+      {keyIdeas[paper.slug] ? (
+        <section className="key-ideas" aria-labelledby="ideas-heading">
+          <h2 id="ideas-heading">Key ideas</h2>
+          <ul>
+            {keyIdeas[paper.slug].map((idea) => (
+              <li key={idea}>{idea}</li>
+            ))}
+          </ul>
+          <p>
+            <Link href="/glossary">Glossary</Link>
+          </p>
+        </section>
+      ) : null}
 
       <Explanation paragraphs={paper.explanation} />
 

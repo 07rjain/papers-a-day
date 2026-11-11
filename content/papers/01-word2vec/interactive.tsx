@@ -1,6 +1,8 @@
 "use client";
 
 import { Page, Section, Text, Callout, Segmented, Select, Button, Table, Steps, LinkCards, Grid, useState, useMemo, useGrokTheme } from "grok/canvas";
+import { WordMap3D } from "@/components/viz/WordMap3D";
+import { QuizSync } from "@/components/study/progress";
 
 type Word = { w: string; x: number; y: number };
 
@@ -177,6 +179,11 @@ export default function App() {
         ]} />
       </Section>
 
+      <Section heading="Play: the same map in 3D" caption="Toy layout. Click a word or run an analogy.">
+        <WordMap3D />
+      </Section>
+
+      <QuizSync slug="01-word2vec" picks={picks} answers={QUIZ.map((item) => item.answer)} />
       <Section heading="Check your understanding">
         {QUIZ.map((item: Q, qi: number) => (
           <Section key={qi} heading={`${qi + 1}. ${item.q}`}>
@@ -192,7 +199,7 @@ export default function App() {
             )}
           </Section>
         ))}
-        <Text>Then tell me in chat, in your own words, why dog and puppy end up close. Explaining it yourself is the real test.</Text>
+        <Text>In your own words, why dog and puppy end up close. Explaining it yourself is the real test.</Text>
       </Section>
 
       <Section heading="Read it yourself">
