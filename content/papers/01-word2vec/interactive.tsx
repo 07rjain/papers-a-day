@@ -2,6 +2,7 @@
 
 import { Page, Section, Text, Callout, Segmented, Select, Button, Table, Steps, LinkCards, Grid, useState, useMemo, useGrokTheme } from "grok/canvas";
 import { WordMap3D } from "@/components/viz/WordMap3D";
+import { QuizSync } from "@/components/study/progress";
 
 type Word = { w: string; x: number; y: number };
 
@@ -182,6 +183,7 @@ export default function App() {
         <WordMap3D />
       </Section>
 
+      <QuizSync slug="01-word2vec" picks={picks} answers={QUIZ.map((item) => item.answer)} />
       <Section heading="Check your understanding">
         {QUIZ.map((item: Q, qi: number) => (
           <Section key={qi} heading={`${qi + 1}. ${item.q}`}>

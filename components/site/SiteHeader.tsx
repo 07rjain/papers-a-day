@@ -21,6 +21,7 @@ export function SiteHeader() {
       <div className="header-tools">
         <nav className="header-links" aria-label="Site">
           <Link href="/#about">About</Link>
+          <Link href="/glossary">Glossary</Link>
         </nav>
         <button
           type="button"

@@ -16,6 +16,7 @@ import {
   useRef,
 } from "grok/canvas";
 import type { BufferAttribute } from "three";
+import { QuizSync } from "@/components/study/progress";
 
 // All landscape numbers, answers, and reward scores below are toy values made up to show the mechanism.
 
@@ -513,6 +514,7 @@ function VideoCard({ file, title, caption }: { file: string; title: string; capt
       <figcaption style={{ fontWeight: 600, marginBottom: 6 }}>{title}</figcaption>
       <video
         src={`/videos/10-instructgpt/${file}`}
+        preload="none"
         controls
         muted
         loop
@@ -579,12 +581,12 @@ const QUIZ: QuizItem[] = [
 ];
 
 export default function App() {
-  const [betaIdx, setBetaIdx] = useState<string>("1");
+  const [beta, setBeta] = useState<number>(0.1);
   const [playing, setPlaying] = useState<boolean>(false);
   const [resetKey, setResetKey] = useState<number>(0);
   const [st, setSt] = useState<Stats>({ rm: 0, q: 0, drift: 0 });
   const [picks, setPicks] = useState<(number | null)[]>(QUIZ.map(() => null));
-  const beta = BETAS[Number(betaIdx)].beta;
+  const betaPreset = BETAS.reduce((best, item) => (Math.abs(item.beta - beta) < Math.abs(best.beta - beta) ? item : best)).value;
 
   const verdict =
     !playing && st.drift < 0.3
@@ -628,7 +630,18 @@ export default function App() {
           Each white dot is an answer the policy might write. Height is the reward model&apos;s score. Colour is how good the answer truly is. This toy reward model has a flaw: far to one side it keeps rising even where answers are truly bad, which is the kind of mistake real reward models make outside the data they were trained on. Pick a KL strength and press Play.
         </Text>
         <div style={{ display: "flex", gap: 10, alignItems: "center", flexWrap: "wrap", margin: "8px 0" }}>
-          <Segmented options={BETAS.map((item) => ({ value: item.value, label: item.label }))} value={betaIdx} onChange={(value: string) => setBetaIdx(value)} />
+          <Segmented
+            options={BETAS.map((item) => ({ value: item.value, label: item.label }))}
+            value={betaPreset}
+            onChange={(value: string) => {
+              const found = BETAS.find((item) => item.value === value);
+              if (found) setBeta(found.beta);
+            }}
+          />
+          <label>
+            β {beta.toFixed(2)}
+            <input type="range" min={0} max={0.5} step={0.01} value={beta} onChange={(event) => setBeta(Number(event.target.value))} />
+          </label>
           <Button label={playing ? "Pause" : "Play PPO"} variant="primary" onClick={() => setPlaying(!playing)} />
           <Button
             label="Restart from SFT"
@@ -693,6 +706,7 @@ export default function App() {
         </Callout>
       </Section>
 
+      <QuizSync slug="10-instructgpt" picks={picks} answers={QUIZ.map((item) => item.answer)} />
       <Section heading="Quick quiz">
         {QUIZ.map((item, k) => (
           <Section key={item.q} heading={`${k + 1}. ${item.q}`}>

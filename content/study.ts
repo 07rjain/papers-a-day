@@ -1,0 +1,90 @@
+export const keyIdeas: Record<string, string[]> = {
+  "01-word2vec": [
+    "A word’s vector is learned from the words that appear near it.",
+    "Similar contexts push vectors together, with no one labelling the pairs.",
+    "Some relationships show up as directions, which is why analogies can look like arithmetic.",
+  ],
+  "02-glove": [
+    "Count co-occurrences over the whole corpus first, then fit vectors to those counts.",
+    "Ratios, not raw counts, separate words that distinguish two meanings.",
+    "A ratio near 1 means the probe word does not tell the two targets apart.",
+  ],
+  "03-seq2seq": [
+    "An encoder reads the input into one fixed-size vector.",
+    "A decoder writes the output one word at a time, and the two sequences can differ in length.",
+    "That single vector is a bottleneck, especially for long sentences.",
+  ],
+  "04-bahdanau-attention": [
+    "Each output word gets its own weighted mix of the input vectors.",
+    "The weights are positive and sum to 1, so the model can look at more than one input word.",
+    "Long sentences no longer have to fit through one fixed summary.",
+  ],
+  "05-transformer": [
+    "Self-attention compares a query with every key, then mixes the values.",
+    "The whole sentence is processed at once, so distant words can connect directly.",
+    "Position has to be added, because attention itself does not know order.",
+  ],
+  "06-bert": [
+    "BERT keeps the Transformer encoder, so each word can see both sides.",
+    "Masking hides the word being predicted, or the task would be trivial.",
+    "The same pretrained model is later fine-tuned for each task.",
+  ],
+  "07-gpt2": [
+    "GPT-2 is a decoder: it predicts the next word from the left context only.",
+    "A diverse corpus contains demonstrations of many tasks, so a prompt can continue one of them.",
+    "Zero-shot skill rose smoothly as the model got bigger.",
+  ],
+  "08-gpt3": [
+    "Few-shot learning puts examples in the prompt and leaves the weights frozen.",
+    "Bigger models make more use of those in-context examples.",
+    "This is not the same as fine-tuning, which updates the weights.",
+  ],
+  "09-scaling-laws": [
+    "Loss falls as a power law in model size, data, and compute when the others are not the limit.",
+    "Network shape matters much less than scale.",
+    "Kaplan’s fit spends most of a larger budget on a bigger model.",
+  ],
+  "10-instructgpt": [
+    "Next-word training is a different goal from following instructions.",
+    "A reward model learns from rankings, then scores new answers during PPO.",
+    "The KL penalty keeps the policy from gaming that imperfect reward model.",
+  ],
+  "11-chinchilla": [
+    "For a fixed compute budget, model size and data should grow together.",
+    "About 20 tokens per parameter was the practical rule in this paper.",
+    "A smaller, better-trained model is also cheaper to run afterwards.",
+  ],
+  "12-lora": [
+    "The useful weight change can have a very low rank.",
+    "Only B and A are trained; the pretrained matrix stays frozen.",
+    "B·A can be added into the original matrix, so inference does not get an extra layer.",
+  ],
+};
+
+export const pathLinks: { slug: string; leadsTo: string }[] = [
+  { slug: "01-word2vec", leadsTo: "Nearby words become vectors." },
+  { slug: "02-glove", leadsTo: "The same idea, learned from global counts." },
+  { slug: "03-seq2seq", leadsTo: "A whole sentence becomes one vector, then another sentence." },
+  { slug: "04-bahdanau-attention", leadsTo: "Look back at the input words that matter now." },
+  { slug: "05-transformer", leadsTo: "Attention replaces the recurrent network." },
+  { slug: "06-bert", leadsTo: "The encoder, trained by filling blanks." },
+  { slug: "07-gpt2", leadsTo: "The decoder, trained to guess the next word." },
+  { slug: "08-gpt3", leadsTo: "A few prompt examples, with the weights left frozen." },
+  { slug: "09-scaling-laws", leadsTo: "How loss falls as models, data, and compute grow." },
+  { slug: "10-instructgpt", leadsTo: "Human rankings train a reward model, then PPO." },
+  { slug: "11-chinchilla", leadsTo: "Split a compute budget between size and data." },
+  { slug: "12-lora", leadsTo: "Fine-tune by training a low-rank update only." },
+];
+
+export const glossary: { id: string; term: string; definition: string }[] = [
+  { id: "embedding", term: "Embedding", definition: "A list of numbers that stands for a word or sentence, so similar meanings can sit near each other." },
+  { id: "attention", term: "Attention", definition: "A weighted average over other vectors. The weights say how much each one matters for the current step, and they sum to 1." },
+  { id: "softmax", term: "Softmax", definition: "Turns a list of scores into positive weights that add up to 1." },
+  { id: "encoder", term: "Encoder", definition: "The part of a model that reads the input and builds a representation of it." },
+  { id: "decoder", term: "Decoder", definition: "The part that writes the output one step at a time, often while looking back at the input." },
+  { id: "token", term: "Token", definition: "A piece of text the model treats as one step, often a word or a part of a word." },
+  { id: "fine-tuning", term: "Fine-tuning", definition: "More training of an existing model on a narrower task, which updates its weights." },
+  { id: "rank", term: "Rank", definition: "How many independent directions a matrix can use. A low-rank update is built from only a few of them." },
+  { id: "rlhf", term: "RLHF", definition: "Reinforcement learning from human feedback: people rank answers, a reward model learns those rankings, and the language model is trained to score well without drifting too far." },
+  { id: "loss", term: "Loss", definition: "A number the training procedure tries to make smaller. For language models it is often how surprised the model is by the next token." },
+];

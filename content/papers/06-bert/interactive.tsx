@@ -2,6 +2,7 @@
 
 import { Page, Section, Text, Callout, Segmented, Button, Table, Steps, LinkCards, useState, useGrokTheme } from "grok/canvas";
 import { MaskGame } from "@/components/viz/MaskGame";
+import { QuizSync } from "@/components/study/progress";
 
 // Demo 1: toy guesses for a masked word (hand-made numbers, not from a trained model).
 type Ex = { left: string; right: string; leftOnly: [string, number][]; both: [string, number][]; answer: string };
@@ -222,6 +223,7 @@ export default function App() {
         <MaskGame />
       </Section>
 
+      <QuizSync slug="06-bert" picks={picks} answers={QUIZ.map((item) => item.answer)} />
       <Section heading="Check your understanding">
         {QUIZ.map((item: Q, k: number) => (
           <Section key={k} heading={`${k + 1}. ${item.q}`}>
