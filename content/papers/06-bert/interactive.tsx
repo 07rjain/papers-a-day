@@ -232,7 +232,7 @@ export default function App() {
             )}
           </Section>
         ))}
-        <Text>Then tell me in chat, in your own words, why BERT hides words with [MASK] instead of just predicting the next word like a normal language model.</Text>
+        <Text>In your own words, why BERT hides words with [MASK] instead of just predicting the next word like a normal language model.</Text>
       </Section>
 
       <Section heading="Read it yourself">

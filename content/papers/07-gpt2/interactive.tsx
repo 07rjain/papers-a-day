@@ -276,7 +276,7 @@ export default function App() {
             )}
           </Section>
         ))}
-        <Text>Then tell me in chat, in your own words, why a model trained only to predict the next word can start answering questions or summarizing just from a prompt, and why making the model bigger helps.</Text>
+        <Text>In your own words, why a model trained only to predict the next word can start answering questions or summarizing just from a prompt, and why making the model bigger helps.</Text>
       </Section>
 
       <Section heading="Read it yourself">

@@ -179,7 +179,7 @@ export default function App() {
           { title: "Position signal choice barely mattered", detail: "Learned position embeddings gave nearly identical results to the sine and cosine version; they kept sines hoping it works on longer sentences." },
           { title: "Works beyond translation", detail: "With little tuning, it did well on English constituency parsing (finding the grammar tree of a sentence)." },
         ]} />
-        <Callout tone="info" lead="Where this leads.">BERT keeps just the encoder half; GPT keeps just the decoder half with the mask. Both are coming up next in your path.</Callout>
+        <Callout tone="info" lead="Where this leads.">BERT keeps just the encoder half; GPT keeps just the decoder half with the mask. Both come next on this reading path.</Callout>
       </Section>
 
       <Section heading="Check your understanding">
@@ -197,7 +197,7 @@ export default function App() {
             )}
           </Section>
         ))}
-        <Text>Then tell me in chat, in your own words, what a query, a key and a value each do in self-attention.</Text>
+        <Text>In your own words, what a query, a key and a value each do in self-attention.</Text>
       </Section>
 
       <Section heading="Read it yourself">

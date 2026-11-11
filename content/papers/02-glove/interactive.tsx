@@ -176,7 +176,7 @@ export default function App() {
             )}
           </Section>
         ))}
-        <Text>Then tell me in chat, in your own words, why the ratio for "water" is close to 1 and what that tells us. Explaining it yourself is the real test.</Text>
+        <Text>In your own words, why the ratio for "water" is close to 1 and what that tells us. Explaining it yourself is the real test.</Text>
       </Section>
 
       <Section heading="Read it yourself">

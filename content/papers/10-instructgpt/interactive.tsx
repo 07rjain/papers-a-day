@@ -718,7 +718,7 @@ export default function App() {
           </Section>
         ))}
         <Text>
-          Then tell me in chat, in your own words: why does InstructGPT need a separate reward model instead of just asking humans to score every answer during training, and what would go wrong if the PPO step had no KL penalty?
+          In your own words: why does InstructGPT need a separate reward model instead of just asking humans to score every answer during training, and what would go wrong if the PPO step had no KL penalty?
         </Text>
       </Section>
 

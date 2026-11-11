@@ -267,7 +267,7 @@ export default function App() {
             )}
           </Section>
         ))}
-        <Text>Then tell me in chat, in your own words: if someone gave you 10x more compute to train a language model, how would this paper tell you to spend it, and why?</Text>
+        <Text>In your own words: if someone gave you 10x more compute to train a language model, how would this paper tell you to spend it, and why?</Text>
       </Section>
 
       <Section heading="Read it yourself">

@@ -192,7 +192,7 @@ export default function App() {
             )}
           </Section>
         ))}
-        <Text>Then tell me in chat, in your own words, why dog and puppy end up close. Explaining it yourself is the real test.</Text>
+        <Text>In your own words, why dog and puppy end up close. Explaining it yourself is the real test.</Text>
       </Section>
 
       <Section heading="Read it yourself">

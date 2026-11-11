@@ -319,7 +319,7 @@ export default function App() {
             )}
           </Section>
         ))}
-        <Text>Then tell me in chat, in your own words, what is the difference between fine-tuning and few-shot (in-context) learning in this paper, and why might a bigger model be better at learning from just a few examples in the prompt?</Text>
+        <Text>In your own words, what is the difference between fine-tuning and few-shot (in-context) learning in this paper, and why might a bigger model be better at learning from just a few examples in the prompt?</Text>
       </Section>
 
       <Section heading="Read it yourself">

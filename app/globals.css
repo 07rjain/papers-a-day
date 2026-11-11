@@ -203,6 +203,22 @@ main,
   text-transform: uppercase;
 }
 
+.header-tools {
+  margin-left: auto;
+  display: flex;
+  align-items: center;
+  gap: 0.9rem;
+}
+
+.header-links {
+  display: flex;
+  gap: 0.8rem;
+  font-size: 0.9rem;
+}
+
+.header-links a { color: var(--text-secondary); text-decoration: none; }
+.header-links a:hover { color: var(--link); }
+
 .theme-toggle {
   font: inherit;
   font-size: 0.85rem;
@@ -254,6 +270,25 @@ main { padding-bottom: 2.5rem; }
   color: var(--text-secondary);
   font-size: 1.12rem;
   line-height: 1.5;
+}
+
+.about {
+  margin: 1.4rem 0 0.2rem;
+  max-width: 40rem;
+}
+
+.about h2 {
+  margin: 0 0 0.4rem;
+  font-family: var(--font-display), Georgia, serif;
+  font-size: 1.35rem;
+  font-weight: 520;
+  letter-spacing: -0.02em;
+}
+
+.about p {
+  margin: 0;
+  color: var(--text-secondary);
+  line-height: 1.6;
 }
 
 .paper-list {

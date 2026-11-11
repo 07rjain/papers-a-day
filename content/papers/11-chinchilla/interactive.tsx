@@ -678,7 +678,7 @@ export default function App() {
           </Section>
         ))}
         <Text>
-          Then tell me in chat, in your own words: Gopher and Chinchilla used the same compute, so why did the smaller model win, and why does that matter even after training is done?
+          In your own words: Gopher and Chinchilla used the same compute, so why did the smaller model win, and why does that matter even after training is done?
         </Text>
       </Section>
 

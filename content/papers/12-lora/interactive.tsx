@@ -798,7 +798,7 @@ export default function App() {
           </Section>
         ))}
         <Text>
-          Then tell me in chat, in your own words: why can LoRA fine-tune a huge model by training only two small matrices, and why does it add no extra delay when the model is used?
+          In your own words: why can LoRA fine-tune a huge model by training only two small matrices, and why does it add no extra delay when the model is used?
         </Text>
       </Section>
 

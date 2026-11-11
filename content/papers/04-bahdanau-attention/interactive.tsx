@@ -185,7 +185,7 @@ export default function App() {
             )}
           </Section>
         ))}
-        <Text>Then tell me in chat, in your own words, how the context vector here differs from the single vector in seq2seq, and why that helps on long sentences.</Text>
+        <Text>In your own words, how the context vector here differs from the single vector in seq2seq, and why that helps on long sentences.</Text>
       </Section>
 
       <Section heading="Read it yourself">
