@@ -1,10 +1,6 @@
-import Link from "next/link";
 import { LearningPath } from "@/components/study/LearningPath";
-import { papersNewestFirst } from "@/content/catalog";
-import { formatSent, padNumber } from "@/content/format";
 
 export default function HomePage() {
-  const papers = papersNewestFirst();
   return (
     <div className="home">
       <header className="home-intro">
@@ -24,28 +20,14 @@ export default function HomePage() {
           Measured results are taken from the papers.
         </p>
       </section>
-      <section className="about" aria-labelledby="path-heading">
+      <section className="reading-path" aria-labelledby="path-heading">
         <h2 id="path-heading">How the papers connect</h2>
-        <p>Read from 01 to 12 if you want each idea to set up the next one. A “Read” mark is stored in this browser.</p>
+        <p>
+          One path, from the first idea to the latest. Read from 01 down to 12, or open any paper
+          on its own. Read and quiz marks stay in this browser.
+        </p>
         <LearningPath />
       </section>
-      <ol className="paper-list">
-        {papers.map((paper) => (
-          <li key={paper.slug}>
-            <Link className="paper-row" href={`/papers/${paper.slug}`}>
-              <span className="num">{padNumber(paper.number)}</span>
-              <span className="row-body">
-                <span className="row-date">{formatSent(paper.sent)}</span>
-                <span className="row-title">{paper.title}</span>
-                <span className="row-meta">
-                  {paper.authors} — {paper.year}
-                </span>
-                <span className="row-hook">{paper.hook}</span>
-              </span>
-            </Link>
-          </li>
-        ))}
-      </ol>
     </div>
   );
 }

@@ -49,7 +49,7 @@ A paper is one folder of content plus one registration line in each of two files
    - `number` — next integer in the learning sequence
    - `slug` — same string as the folder name
    - `title`, `authors`, `year`, `url` — the paper itself. `url` is where the title links
-   - `sent` — `YYYY-MM-DD`. The homepage sorts by this, newest first. Previous and next follow it oldest to newest
+   - `sent` — `YYYY-MM-DD`. The homepage and the previous/next links follow this date, oldest first
    - `hook` — one line for the homepage
    - `explanation` — an array of paragraphs. Each paragraph is an array of strings and `{ text, href }` links
    - `question` — the question for today
@@ -66,7 +66,7 @@ A paper is one folder of content plus one registration line in each of two files
 
 5. Check it with `npm run dev` at `/papers/06-bert`, then `npm run build`.
 
-No other files need to change. The homepage, prev/next links, and static paths are generated from the catalog.
+No other files need to change. The homepage, prev/next links, and static paths are generated from the catalog. A “builds on” line for the homepage timeline is optional: add the slug to `pathLinks` in `content/study.ts`. The paper still appears if that line is missing.
 
 ## Theme
 

@@ -61,19 +61,20 @@ export const keyIdeas: Record<string, string[]> = {
   ],
 };
 
-export const pathLinks: { slug: string; leadsTo: string }[] = [
-  { slug: "01-word2vec", leadsTo: "Nearby words become vectors." },
-  { slug: "02-glove", leadsTo: "The same idea, learned from global counts." },
-  { slug: "03-seq2seq", leadsTo: "A whole sentence becomes one vector, then another sentence." },
-  { slug: "04-bahdanau-attention", leadsTo: "Look back at the input words that matter now." },
-  { slug: "05-transformer", leadsTo: "Attention replaces the recurrent network." },
-  { slug: "06-bert", leadsTo: "The encoder, trained by filling blanks." },
-  { slug: "07-gpt2", leadsTo: "The decoder, trained to guess the next word." },
-  { slug: "08-gpt3", leadsTo: "A few prompt examples, with the weights left frozen." },
-  { slug: "09-scaling-laws", leadsTo: "How loss falls as models, data, and compute grow." },
-  { slug: "10-instructgpt", leadsTo: "Human rankings train a reward model, then PPO." },
-  { slug: "11-chinchilla", leadsTo: "Split a compute budget between size and data." },
-  { slug: "12-lora", leadsTo: "Fine-tune by training a low-rank update only." },
+/** What each paper takes from the one before it on the reading path. The first paper starts the path. */
+export const pathLinks: { slug: string; buildsOn: string | null }[] = [
+  { slug: "01-word2vec", buildsOn: null },
+  { slug: "02-glove", buildsOn: "word2vec’s nearby-word vectors, using counts from the whole corpus" },
+  { slug: "03-seq2seq", buildsOn: "the idea that a meaning can be a vector, now for a whole sentence" },
+  { slug: "04-bahdanau-attention", buildsOn: "seq2seq’s one fixed vector, which long sentences outgrow" },
+  { slug: "05-transformer", buildsOn: "Bahdanau attention, and drops the recurrent network" },
+  { slug: "06-bert", buildsOn: "the Transformer encoder, trained by filling in missing words" },
+  { slug: "07-gpt2", buildsOn: "the Transformer decoder, trained only to predict the next word" },
+  { slug: "08-gpt3", buildsOn: "GPT-2’s prompt-only tasks, with examples written into the prompt" },
+  { slug: "09-scaling-laws", buildsOn: "the jump in size from GPT-2 to GPT-3" },
+  { slug: "10-instructgpt", buildsOn: "GPT-3, which still just guesses the next word" },
+  { slug: "11-chinchilla", buildsOn: "Kaplan’s rule for spending a larger compute budget" },
+  { slug: "12-lora", buildsOn: "full-model fine-tuning, the step InstructGPT uses" },
 ];
 
 export const glossary: { id: string; term: string; definition: string }[] = [
