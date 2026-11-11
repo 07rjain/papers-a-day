@@ -1,6 +1,7 @@
 "use client";
 
 import { Page, Section, Text, Callout, Segmented, Select, Button, Table, Steps, LinkCards, Grid, useState, useMemo, useGrokTheme } from "grok/canvas";
+import { WordMap3D } from "@/components/viz/WordMap3D";
 
 type Word = { w: string; x: number; y: number };
 
@@ -175,6 +176,10 @@ export default function App() {
           { title: "So they could use far more data", detail: "Being cheap to train meant learning from about 1.6 billion words in under a day." },
           { title: "And the vectors captured meaning", detail: "They built a test of analogy questions like Athens is to Greece as Oslo is to what, and their vectors answered many of them correctly." },
         ]} />
+      </Section>
+
+      <Section heading="Play: the same map in 3D" caption="Toy layout. Click a word or run an analogy.">
+        <WordMap3D />
       </Section>
 
       <Section heading="Check your understanding">

@@ -1,6 +1,7 @@
 "use client";
 
 import { Page, Section, Text, Callout, Segmented, Select, Button, Table, Steps, LinkCards, Grid, useState, useMemo, useGrokTheme } from "grok/canvas";
+import { GloveRatio3D } from "@/components/viz/GloveRatio3D";
 
 const CORPUS: string[] = [
   "ice is cold and solid",
@@ -159,6 +160,10 @@ export default function App() {
           { title: "Strong results", detail: "On the word analogy test it reached 75% accuracy with 300-dimensional vectors trained on 42 billion words, and the authors report it beat word2vec under comparable training on analogy, word similarity and named entity recognition tasks." },
           { title: "Efficient", detail: "Training only touches the non-zero entries of the table, so cost depends on the table, not the full corpus length." },
         ]} />
+      </Section>
+
+      <Section heading="Play: the ice/steam ratios in space" caption="Table 1 numbers, with a toy depth so the labels separate.">
+        <GloveRatio3D />
       </Section>
 
       <Section heading="Check your understanding">

@@ -1,6 +1,7 @@
 "use client";
 
 import { Page, Section, Text, Callout, Segmented, Button, Table, Steps, LinkCards, useState, useGrokTheme } from "grok/canvas";
+import { MaskGame } from "@/components/viz/MaskGame";
 
 // Demo 1: toy guesses for a masked word (hand-made numbers, not from a trained model).
 type Ex = { left: string; right: string; leftOnly: [string, number][]; both: [string, number][]; answer: string };
@@ -215,6 +216,10 @@ export default function App() {
           { title: "Cheap to fine-tune", detail: "Most tasks fine-tune in at most an hour on one Cloud TPU, starting from the same pre-trained model." },
         ]} />
         <Callout tone="info" lead="Where this leads.">BERT took the encoder half of the Transformer. GPT-2 and GPT-3 take the decoder half with its mask and just predict the next word, at huge scale. That's coming up next.</Callout>
+      </Section>
+
+      <Section heading="Play: fill the blank" caption="Toy answer lists, not BERT's output.">
+        <MaskGame />
       </Section>
 
       <Section heading="Check your understanding">
