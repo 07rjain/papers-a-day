@@ -1,5 +1,6 @@
 "use client";
 
+import { RankCurve } from "@/components/viz/RankCurve";
 import {
   Page,
   Section,
@@ -17,6 +18,7 @@ import {
   useRef,
 } from "grok/canvas";
 import type { Vector3 } from "three";
+import { QuizSync } from "@/components/study/progress";
 
 // Parameter counts use GPT-3 175B's d_model = 12,288, from the paper.
 // The low-rank picture is a toy example on a made-up 28 × 28 matrix.
@@ -603,6 +605,7 @@ function VideoCard({ file, title, caption }: { file: string; title: string; capt
       <figcaption style={{ fontWeight: 600, marginBottom: 6 }}>{title}</figcaption>
       <video
         src={`/videos/12-lora/${file}`}
+        preload="none"
         controls
         muted
         loop
@@ -773,6 +776,11 @@ export default function App() {
         </Callout>
       </Section>
 
+      <Section heading="Play: rank versus parameter count" caption="The count is arithmetic. The quality curve is toy.">
+        <RankCurve />
+      </Section>
+
+      <QuizSync slug="12-lora" picks={picks} answers={QUIZ.map((item) => item.answer)} />
       <Section heading="Quick quiz">
         {QUIZ.map((item, index) => (
           <Section key={item.q} heading={`${index + 1}. ${item.q}`}>

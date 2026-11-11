@@ -1,6 +1,8 @@
 "use client";
 
 import { Page, Section, Text, Callout, Segmented, Select, Button, Table, Steps, LinkCards, Grid, useState, useMemo, useGrokTheme } from "grok/canvas";
+import { GloveRatio3D } from "@/components/viz/GloveRatio3D";
+import { QuizSync } from "@/components/study/progress";
 
 const CORPUS: string[] = [
   "ice is cold and solid",
@@ -161,6 +163,11 @@ export default function App() {
         ]} />
       </Section>
 
+      <Section heading="Play: the ice/steam ratios in space" caption="Table 1 numbers, with a toy depth so the labels separate.">
+        <GloveRatio3D />
+      </Section>
+
+      <QuizSync slug="02-glove" picks={picks} answers={QUIZ.map((item) => item.answer)} />
       <Section heading="Check your understanding">
         {QUIZ.map((item: Q, qi: number) => (
           <Section key={qi} heading={`${qi + 1}. ${item.q}`}>

@@ -1,6 +1,8 @@
 "use client";
 
 import { Page, Section, Text, Callout, Segmented, Button, Table, Steps, LinkCards, useState, useMemo, useGrokTheme } from "grok/canvas";
+import { AttentionBars3D } from "@/components/viz/AttentionBars3D";
+import { QuizSync } from "@/components/study/progress";
 
 const SRC: string[] = ["the", "European", "Economic", "Area"];
 const TGT: string[] = ["la", "zone", "économique", "européenne"];
@@ -170,6 +172,11 @@ export default function App() {
         <Callout tone="info" lead="Where this leads.">This paper bolted attention onto an RNN. A few papers later, "Attention Is All You Need" throws the RNN away and builds the whole model from attention.</Callout>
       </Section>
 
+      <Section heading="Play: attention as 3D bars" caption="Same toy scores as Demo 1, drawn as bars you can switch.">
+        <AttentionBars3D />
+      </Section>
+
+      <QuizSync slug="04-bahdanau-attention" picks={picks} answers={QUIZ.map((item) => item.answer)} />
       <Section heading="Check your understanding">
         {QUIZ.map((item: Q, qi: number) => (
           <Section key={qi} heading={`${qi + 1}. ${item.q}`}>

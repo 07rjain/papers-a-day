@@ -1,6 +1,8 @@
 "use client";
 
 import { Page, Section, Text, Callout, Segmented, Button, Table, Steps, LinkCards, useState, useMemo, useGrokTheme } from "grok/canvas";
+import { Bottleneck3D } from "@/components/viz/Bottleneck3D";
+import { QuizSync } from "@/components/study/progress";
 
 type Pair = { src: string[]; tgt: string[] };
 const PAIRS: Pair[] = [
@@ -184,6 +186,11 @@ export default function App() {
         <Callout tone="warning" lead="The catch to remember.">Everything about the input has to fit through one fixed-size vector. The next paper on this path, Bahdanau's attention, lets the decoder look back at every input word instead.</Callout>
       </Section>
 
+      <Section heading="Play: the fixed-size vector" caption="Toy picture of the bottleneck. The cube does not grow.">
+        <Bottleneck3D />
+      </Section>
+
+      <QuizSync slug="03-seq2seq" picks={picks} answers={QUIZ.map((item) => item.answer)} />
       <Section heading="Check your understanding">
         {QUIZ.map((item: Q, qi: number) => (
           <Section key={qi} heading={`${qi + 1}. ${item.q}`}>

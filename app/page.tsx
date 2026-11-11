@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { LearningPath } from "@/components/study/LearningPath";
 import { papersNewestFirst } from "@/content/catalog";
 import { formatSent, padNumber } from "@/content/format";
 
@@ -22,6 +23,11 @@ export default function HomePage() {
           made-up numbers so the mechanism is easy to see, and those are labelled on the page.
           Measured results are taken from the papers.
         </p>
+      </section>
+      <section className="about" aria-labelledby="path-heading">
+        <h2 id="path-heading">How the papers connect</h2>
+        <p>Read from 01 to 12 if you want each idea to set up the next one. A “Read” mark is stored in this browser.</p>
+        <LearningPath />
       </section>
       <ol className="paper-list">
         {papers.map((paper) => (
