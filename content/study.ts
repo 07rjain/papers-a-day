@@ -59,6 +59,11 @@ export const keyIdeas: Record<string, string[]> = {
     "Only B and A are trained; the pretrained matrix stays frozen.",
     "B·A can be added into the original matrix, so inference does not get an extra layer.",
   ],
+  "13-dpo": [
+    "The best policy for the KL-constrained RLHF objective has a closed form, so the reward can be read off the policy.",
+    "DPO trains on preference pairs with one classification loss: no reward model, no PPO, and no sampling during training.",
+    "β is the leash. A small β lets the model drift further from the reference; a large β keeps it close.",
+  ],
 };
 
 /** What each paper takes from the one before it on the reading path. The first paper starts the path. */
@@ -75,6 +80,7 @@ export const pathLinks: { slug: string; buildsOn: string | null }[] = [
   { slug: "10-instructgpt", buildsOn: "GPT-3, which still just guesses the next word" },
   { slug: "11-chinchilla", buildsOn: "Kaplan’s rule for spending a larger compute budget" },
   { slug: "12-lora", buildsOn: "full-model fine-tuning, the step InstructGPT uses" },
+  { slug: "13-dpo", buildsOn: "InstructGPT (paper 10): the separate reward model and the PPO loop" },
 ];
 
 export const glossary: { id: string; term: string; definition: string }[] = [
@@ -88,4 +94,14 @@ export const glossary: { id: string; term: string; definition: string }[] = [
   { id: "rank", term: "Rank", definition: "How many independent directions a matrix can use. A low-rank update is built from only a few of them." },
   { id: "rlhf", term: "RLHF", definition: "Reinforcement learning from human feedback: people rank answers, a reward model learns those rankings, and the language model is trained to score well without drifting too far." },
   { id: "loss", term: "Loss", definition: "A number the training procedure tries to make smaller. For language models it is often how surprised the model is by the next token." },
+  { id: "preference-pair", term: "Preference pair", definition: "Two answers to the same prompt, with a label for which one is better: the chosen answer y_w and the rejected answer y_l." },
+  { id: "reference-model", term: "Reference model", definition: "A frozen copy of the model from before preference training, usually the supervised fine-tune. DPO measures the new model against it." },
+  { id: "implicit-reward", term: "Implicit reward", definition: "A score read off the policy itself: β times the log of the new model's probability of an answer, divided by the reference model's probability." },
+  { id: "beta", term: "Beta (β)", definition: "The KL strength in DPO and RLHF. A small β lets the model move further from the reference to satisfy preferences. A large β keeps it close, and it also scales the implicit reward." },
+  { id: "bradley-terry", term: "Bradley-Terry model", definition: "A model of pairwise preferences: the chance that one answer is preferred is a sigmoid of the difference between the two answers' rewards." },
+  { id: "kl-divergence", term: "KL divergence", definition: "A measure of how far one probability distribution has moved from another. In DPO it is how far the new policy has drifted from the reference." },
+  { id: "partition-function", term: "Partition function", definition: "Z(x), the normalizer that makes the optimal policy's probabilities add up to 1 for a prompt. In DPO it cancels, because both answers share the same prompt." },
+  { id: "ppo", term: "PPO", definition: "Proximal Policy Optimization, the reinforcement-learning algorithm InstructGPT uses to chase scores from a reward model. DPO does not run it." },
+  { id: "win-rate", term: "Win rate", definition: "The share of comparisons in which one system's answer is judged better, by a person or by a model used as a judge." },
+  { id: "reward-over-optimization", term: "Reward over-optimization", definition: "When a model keeps chasing an imperfect reward until answers look good to the scorer and worse to people. DPO's weighting fades the push once a pair is already clearly ranked." },
 ];

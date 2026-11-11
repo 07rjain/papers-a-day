@@ -22,7 +22,7 @@ npm start
 
 | Route | Page |
 | --- | --- |
-| `/` | All papers, newest sent-date first |
+| `/` | All papers, one reading path, oldest sent-date first |
 | `/papers/01-word2vec` | Efficient Estimation of Word Representations in Vector Space (2013) |
 | `/papers/02-glove` | GloVe: Global Vectors for Word Representation (2014) |
 | `/papers/03-seq2seq` | Sequence to Sequence Learning with Neural Networks (2014) |
@@ -35,6 +35,7 @@ npm start
 | `/papers/10-instructgpt` | Training language models to follow instructions with human feedback (2022) |
 | `/papers/11-chinchilla` | Training Compute-Optimal Large Language Models (2022) |
 | `/papers/12-lora` | LoRA: Low-Rank Adaptation of Large Language Models (2021) |
+| `/papers/13-dpo` | Direct Preference Optimization: Your Language Model is Secretly a Reward Model (2023) |
 
 Previous and next follow the sent date, oldest to newest. Unknown slugs 404.
 
