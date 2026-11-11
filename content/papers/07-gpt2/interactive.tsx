@@ -1,6 +1,8 @@
 "use client";
 
 import { Page, Section, Text, Callout, Segmented, Button, Table, Steps, LinkCards, useState, useGrokTheme } from "grok/canvas";
+import { TokenSampler } from "@/components/viz/TokenSampler";
+import { QuizSync } from "@/components/study/progress";
 
 // Demo 1: zero-shot prompting formats from the paper (toy continuations).
 type PromptDemo = {
@@ -261,6 +263,11 @@ export default function App() {
         <Callout tone="info" lead="Where this leads.">BERT showed pre-train then fine-tune with the encoder. GPT-2 showed that a big decoder LM can do tasks from prompts alone. GPT-3 pushes that idea further with even more scale and few-shot examples in the prompt.</Callout>
       </Section>
 
+      <Section heading="Play: temperature and top-k" caption="Toy next-token list, not GPT-2's probabilities.">
+        <TokenSampler />
+      </Section>
+
+      <QuizSync slug="07-gpt2" picks={picks} answers={QUIZ.map((item) => item.answer)} />
       <Section heading="Check your understanding">
         {QUIZ.map((item: Q, k: number) => (
           <Section key={k} heading={`${k + 1}. ${item.q}`}>
