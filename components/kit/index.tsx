@@ -345,6 +345,42 @@ export function Select<T extends string = string>({
   );
 }
 
+export function Toggle({
+  label,
+  value,
+  onChange,
+}: {
+  label: string;
+  value: boolean;
+  onChange: (value: boolean) => void;
+}) {
+  return (
+    <button type="button" className={`k-btn${value ? " primary" : ""}`} aria-pressed={value} onClick={() => onChange(!value)}>
+      {label}
+    </button>
+  );
+}
+
+export function Input({
+  label,
+  value,
+  onChange,
+  type = "text",
+}: {
+  label?: string;
+  value: string;
+  onChange: (value: string) => void;
+  type?: string;
+}) {
+  const id = useId();
+  return (
+    <div className="k-field">
+      {label ? <label htmlFor={id}>{label}</label> : null}
+      <input id={id} type={type} value={value} onChange={(event) => onChange(event.target.value)} />
+    </div>
+  );
+}
+
 export function Button({
   label,
   onClick,

@@ -36,6 +36,7 @@ npm start
 | `/papers/11-chinchilla` | Training Compute-Optimal Large Language Models (2022) |
 | `/papers/12-lora` | LoRA: Low-Rank Adaptation of Large Language Models (2021) |
 | `/papers/13-dpo` | Direct Preference Optimization: Your Language Model is Secretly a Reward Model (2023) |
+| `/papers/14-chain-of-thought` | Chain-of-Thought Prompting Elicits Reasoning in Large Language Models (2022) |
 
 Previous and next follow the sent date, oldest to newest. Unknown slugs 404.
 
@@ -56,7 +57,7 @@ A paper is one folder of content plus one registration line in each of two files
    - `question` — the question for today
    - `answer` — the answer key, hidden until "Check your answer" is opened
 
-3. Create `content/papers/06-bert/interactive.tsx`. The first line must be `"use client"`. Default-export the page component. Import UI from `grok/canvas` (mapped in `tsconfig.json` to `components/kit`). The kit currently provides `Page`, `Section`, `Text`, `Callout`, `Table`, `Steps`, `Grid`, `Segmented`, `Select`, `Button`, `LinkCards`, `Metrics`, `Equation`, `Frac`, `Pow`, `useGrokTheme`, and the React hooks `useState`, `useMemo`, `useEffect`, `useCallback`, `useRef`, `useReducer`. `useGrokTheme()` returns a light/dark theme whose colors are CSS variables, so demos follow the site theme. If a new page imports a component that is not in that list, add it to `components/kit/index.tsx` with the same props the page already uses.
+3. Create `content/papers/06-bert/interactive.tsx`. The first line must be `"use client"`. Default-export the page component. Import UI from `grok/canvas` (mapped in `tsconfig.json` to `components/kit`). The kit currently provides `Page`, `Section`, `Text`, `Callout`, `Table`, `Steps`, `Grid`, `Segmented`, `Select`, `Button`, `Toggle`, `Input`, `LinkCards`, `Metrics`, `Equation`, `Frac`, `Pow`, `useGrokTheme`, and the React hooks `useState`, `useMemo`, `useEffect`, `useCallback`, `useRef`, `useReducer`. `useGrokTheme()` returns a light/dark theme whose colors are CSS variables, so demos follow the site theme. If a new page imports a component that is not in that list, add it to `components/kit/index.tsx` with the same props the page already uses.
 
    Keep any made-up numbers labelled as toy or example data in the visible caption, the same way the current pages do.
 

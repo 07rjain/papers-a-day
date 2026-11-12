@@ -64,6 +64,11 @@ export const keyIdeas: Record<string, string[]> = {
     "DPO trains on preference pairs with one classification loss: no reward model, no PPO, and no sampling during training.",
     "β is the leash. A small β lets the model drift further from the reference; a large β keeps it close.",
   ],
+  "14-chain-of-thought": [
+    "Few-shot examples that show their working make a large model write its own steps before the answer.",
+    "The gain is emergent: small models write fluent but illogical chains, and the jump shows up around 100B parameters.",
+    "The steps have to come first. Reasoning after the answer, or extra tokens alone, does not help.",
+  ],
 };
 
 /** What each paper takes from the one before it on the reading path. The first paper starts the path. */
@@ -81,6 +86,7 @@ export const pathLinks: { slug: string; buildsOn: string | null }[] = [
   { slug: "11-chinchilla", buildsOn: "Kaplan’s rule for spending a larger compute budget" },
   { slug: "12-lora", buildsOn: "full-model fine-tuning, the step InstructGPT uses" },
   { slug: "13-dpo", buildsOn: "InstructGPT (paper 10): the separate reward model and the PPO loop" },
+  { slug: "14-chain-of-thought", buildsOn: "GPT-3 (paper 8) few-shot prompting, and the scale story in Scaling Laws (paper 9)" },
 ];
 
 export const glossary: { id: string; term: string; definition: string }[] = [
@@ -104,4 +110,13 @@ export const glossary: { id: string; term: string; definition: string }[] = [
   { id: "ppo", term: "PPO", definition: "Proximal Policy Optimization, the reinforcement-learning algorithm InstructGPT uses to chase scores from a reward model. DPO does not run it." },
   { id: "win-rate", term: "Win rate", definition: "The share of comparisons in which one system's answer is judged better, by a person or by a model used as a judge." },
   { id: "reward-over-optimization", term: "Reward over-optimization", definition: "When a model keeps chasing an imperfect reward until answers look good to the scorer and worse to people. DPO's weighting fades the push once a pair is already clearly ranked." },
+  { id: "chain-of-thought", term: "Chain of thought", definition: "A series of short reasoning steps, written in ordinary language, that leads to a final answer." },
+  { id: "few-shot-prompting", term: "Few-shot prompting", definition: "Putting a handful of examples in the prompt so the model continues the pattern, without changing its weights." },
+  { id: "exemplar", term: "Exemplar", definition: "One example in the prompt. In chain-of-thought prompting it is a question, the reasoning steps, and the answer." },
+  { id: "emergent-ability", term: "Emergent ability", definition: "A skill that is almost absent in smaller models and appears once models pass some scale." },
+  { id: "ablation", term: "Ablation", definition: "A test that removes or swaps one ingredient to see whether it was what actually helped." },
+  { id: "gsm8k", term: "GSM8K", definition: "A set of grade-school math word problems that take several steps. It is the hardest math set in the chain-of-thought paper." },
+  { id: "ood-length", term: "Out-of-distribution length", definition: "A test problem with more steps than any example shown in the prompt." },
+  { id: "greedy-decoding", term: "Greedy decoding", definition: "Picking the single most likely next token at every step, with no random sampling." },
+  { id: "standard-prompting", term: "Standard prompting", definition: "Few-shot examples that show only the question and the final answer, with no working in between." },
 ];
