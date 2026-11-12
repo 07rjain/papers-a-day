@@ -12,13 +12,14 @@ import { meta as instruct } from "@/content/papers/10-instructgpt/content";
 import { meta as chinchilla } from "@/content/papers/11-chinchilla/content";
 import { meta as lora } from "@/content/papers/12-lora/content";
 import { meta as dpo } from "@/content/papers/13-dpo/content";
+import { meta as cot } from "@/content/papers/14-chain-of-thought/content";
 
 /**
  * Every paper's metadata. Interactive demos are registered separately in
  * `content/interactives.tsx` so the homepage does not load them.
  * Adding a paper: see README, "Adding a new paper".
  */
-export const papers: PaperMeta[] = [word2vec, glove, seq2seq, attention, transformer, bert, gpt2, gpt3, scaling, instruct, chinchilla, lora, dpo];
+export const papers: PaperMeta[] = [word2vec, glove, seq2seq, attention, transformer, bert, gpt2, gpt3, scaling, instruct, chinchilla, lora, dpo, cot];
 
 export function learningOrder(): PaperMeta[] {
   return [...papers].sort((a, b) => a.sent.localeCompare(b.sent) || a.number - b.number);
