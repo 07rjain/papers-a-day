@@ -20,4 +20,5 @@ export const interactives: Record<string, ComponentType> = {
   "12-lora": dynamic(() => import("@/content/papers/12-lora/interactive")),
   "13-dpo": dynamic(() => import("@/content/papers/13-dpo/interactive")),
   "14-chain-of-thought": dynamic(() => import("@/content/papers/14-chain-of-thought/interactive")),
+  "15-self-consistency": dynamic(() => import("@/content/papers/15-self-consistency/interactive")),
 };

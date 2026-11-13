@@ -69,6 +69,11 @@ export const keyIdeas: Record<string, string[]> = {
     "The gain is emergent: small models write fluent but illogical chains, and the jump shows up around 100B parameters.",
     "The steps have to come first. Reasoning after the answer, or extra tokens alone, does not help.",
   ],
+  "15-self-consistency": [
+    "Sample many reasoning paths from the same chain-of-thought prompt, then take the most common final answer.",
+    "Correct paths tend to agree, while wrong paths scatter, so a majority can be right even when fewer than half the paths are.",
+    "Most of the gain comes from the first 5 to 10 paths. On PaLM 540B GSM8K a plain vote matched probability weighting, 74.4 versus 74.1.",
+  ],
 };
 
 /** What each paper takes from the one before it on the reading path. The first paper starts the path. */
@@ -87,6 +92,10 @@ export const pathLinks: { slug: string; buildsOn: string | null }[] = [
   { slug: "12-lora", buildsOn: "full-model fine-tuning, the step InstructGPT uses" },
   { slug: "13-dpo", buildsOn: "InstructGPT (paper 10): the separate reward model and the PPO loop" },
   { slug: "14-chain-of-thought", buildsOn: "GPT-3 (paper 8) few-shot prompting, and the scale story in Scaling Laws (paper 9)" },
+  {
+    slug: "15-self-consistency",
+    buildsOn: "chain-of-thought (paper 14) and GPT-3 (paper 8) sampling; it leads on to zero-shot chain of thought, Tree of Thoughts, and reasoning models",
+  },
 ];
 
 export const glossary: { id: string; term: string; definition: string }[] = [
@@ -119,4 +128,13 @@ export const glossary: { id: string; term: string; definition: string }[] = [
   { id: "ood-length", term: "Out-of-distribution length", definition: "A test problem with more steps than any example shown in the prompt." },
   { id: "greedy-decoding", term: "Greedy decoding", definition: "Picking the single most likely next token at every step, with no random sampling." },
   { id: "standard-prompting", term: "Standard prompting", definition: "Few-shot examples that show only the question and the final answer, with no working in between." },
+  { id: "self-consistency", term: "Self-consistency", definition: "Sample many chains of thought from the same prompt, then keep the final answer that appears most often. No extra training and no extra model." },
+  { id: "temperature-sampling", term: "Temperature sampling", definition: "Picking the next token with some randomness. A higher temperature makes the outputs more varied." },
+  { id: "top-k-sampling", term: "Top-k sampling", definition: "Restricting the random next-token choice to the k most likely tokens." },
+  { id: "reasoning-path", term: "Reasoning path", definition: "One complete chain of thought a model writes for a question, ending in a final answer." },
+  { id: "marginalization", term: "Marginalization", definition: "Adding up over the hidden middle steps. Here, ignore which reasoning path was taken and count votes for each final answer." },
+  { id: "majority-vote", term: "Majority vote", definition: "The answer that receives the most votes wins, with each sampled path counting once." },
+  { id: "consistency", term: "Consistency", definition: "The share of sampled paths that agree with the winning answer. In this paper it tracks accuracy, so it works as a rough confidence score." },
+  { id: "beam-search", term: "Beam search", definition: "Keeping a few of the most likely partial outputs at each step. The chains stay similar, so a vote over them helps less than diverse samples." },
+  { id: "sample-and-rank", term: "Sample-and-rank", definition: "Draw several outputs, then pick the single one the model itself scores as most likely, instead of voting across their answers." },
 ];

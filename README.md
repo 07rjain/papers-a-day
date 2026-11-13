@@ -37,6 +37,7 @@ npm start
 | `/papers/12-lora` | LoRA: Low-Rank Adaptation of Large Language Models (2021) |
 | `/papers/13-dpo` | Direct Preference Optimization: Your Language Model is Secretly a Reward Model (2023) |
 | `/papers/14-chain-of-thought` | Chain-of-Thought Prompting Elicits Reasoning in Large Language Models (2022) |
+| `/papers/15-self-consistency` | Self-Consistency Improves Chain of Thought Reasoning in Language Models (2023) |
 
 Previous and next follow the sent date, oldest to newest. Unknown slugs 404.
 
