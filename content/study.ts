@@ -74,6 +74,11 @@ export const keyIdeas: Record<string, string[]> = {
     "Correct paths tend to agree, while wrong paths scatter, so a majority can be right even when fewer than half the paths are.",
     "Most of the gain comes from the first 5 to 10 paths. On PaLM 540B GSM8K a plain vote matched probability weighting, 74.4 versus 74.1.",
   ],
+  "16-react": [
+    "A thought changes nothing in the world. It adds a plan, a correction, or a progress note to the context.",
+    "Actions bring back real observations, so the next thought is not built on a made-up fact.",
+    "Thinking alone hallucinates and acting alone cannot plan. The best HotpotQA and FEVER scores switch between ReAct and self-consistency.",
+  ],
 };
 
 /** What each paper takes from the one before it on the reading path. The first paper starts the path. */
@@ -95,6 +100,10 @@ export const pathLinks: { slug: string; buildsOn: string | null }[] = [
   {
     slug: "15-self-consistency",
     buildsOn: "chain-of-thought (paper 14) and GPT-3 (paper 8) sampling; it leads on to zero-shot chain of thought, Tree of Thoughts, and reasoning models",
+  },
+  {
+    slug: "16-react",
+    buildsOn: "chain-of-thought (paper 14), self-consistency (paper 15), and GPT-3 (paper 8) few-shot prompts; it leads on to tool use, Reflexion, and retrieval-augmented agents",
   },
 ];
 
@@ -137,4 +146,18 @@ export const glossary: { id: string; term: string; definition: string }[] = [
   { id: "consistency", term: "Consistency", definition: "The share of sampled paths that agree with the winning answer. In this paper it tracks accuracy, so it works as a rough confidence score." },
   { id: "beam-search", term: "Beam search", definition: "Keeping a few of the most likely partial outputs at each step. The chains stay similar, so a vote over them helps less than diverse samples." },
   { id: "sample-and-rank", term: "Sample-and-rank", definition: "Draw several outputs, then pick the single one the model itself scores as most likely, instead of voting across their answers." },
+  { id: "react", term: "ReAct", definition: "Reason and act: a prompt that makes a model take turns writing a thought, taking an action, and reading the observation that comes back." },
+  { id: "agent", term: "Agent", definition: "A model that chooses actions in an environment, sees what happens, and chooses again, instead of answering in one shot." },
+  { id: "observation", term: "Observation", definition: "What the environment returns after an action, such as the first sentences of a Wikipedia page or a note that nothing happened." },
+  { id: "trajectory", term: "Trajectory", definition: "The full sequence of thoughts, actions, and observations for one attempt at a task." },
+  { id: "action-space", term: "Action space", definition: "The set of actions a model is allowed to take. In ReAct that set includes both tool calls and free-text thoughts." },
+  { id: "hallucination", term: "Hallucination", definition: "A confident statement of a fact the model made up. Chain-of-thought can build later steps on that invented fact." },
+  { id: "grounding", term: "Grounding", definition: "Tying a reasoning step to something retrieved from outside the model, such as a Wikipedia sentence, instead of to memory alone." },
+  { id: "hotpotqa", term: "HotpotQA", definition: "A question-answering set whose questions need facts from more than one Wikipedia page. ReAct scores it by exact match." },
+  { id: "fever", term: "FEVER", definition: "A fact-checking set. The label is SUPPORTS, REFUTES, or NOT ENOUGH INFO." },
+  { id: "exact-match", term: "Exact match", definition: "A score that counts an answer only when it matches the reference string, not when it is merely close." },
+  { id: "alfworld", term: "ALFWorld", definition: "A household game described in text. The agent has to find and move objects by writing commands." },
+  { id: "webshop", term: "WebShop", definition: "A simulated online shop. The agent searches and clicks until it buys an item that matches an instruction." },
+  { id: "imitation-learning", term: "Imitation learning", definition: "Training a policy to copy recorded expert actions, rather than only prompting a frozen language model." },
+  { id: "fallback", term: "Fallback", definition: "Switching to a second method when the first is stuck or unsure. ReAct and self-consistency hand off to each other this way." },
 ];
