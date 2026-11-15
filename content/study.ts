@@ -79,6 +79,11 @@ export const keyIdeas: Record<string, string[]> = {
     "Actions bring back real observations, so the next thought is not built on a made-up fact.",
     "Thinking alone hallucinates and acting alone cannot plan. The best HotpotQA and FEVER scores switch between ReAct and self-consistency.",
   ],
+  "17-tree-of-thoughts": [
+    "A thought is one intermediate step. The model proposes several of them instead of committing to a single chain.",
+    "The same model grades those partial states, then search keeps the promising ones and can prune or backtrack.",
+    "On Game of 24, GPT-4 went from 4% with chain of thought to 74% with breadth 5. The cost is many more calls.",
+  ],
 };
 
 /** What each paper takes from the one before it on the reading path. The first paper starts the path. */
@@ -104,6 +109,10 @@ export const pathLinks: { slug: string; buildsOn: string | null }[] = [
   {
     slug: "16-react",
     buildsOn: "chain-of-thought (paper 14), self-consistency (paper 15), and GPT-3 (paper 8) few-shot prompts; it leads on to tool use, Reflexion, and retrieval-augmented agents",
+  },
+  {
+    slug: "17-tree-of-thoughts",
+    buildsOn: "chain-of-thought (paper 14), self-consistency (paper 15), and ReAct (paper 16); it leads on to process rewards and test-time reasoning",
   },
 ];
 
@@ -160,4 +169,13 @@ export const glossary: { id: string; term: string; definition: string }[] = [
   { id: "webshop", term: "WebShop", definition: "A simulated online shop. The agent searches and clicks until it buys an item that matches an instruction." },
   { id: "imitation-learning", term: "Imitation learning", definition: "Training a policy to copy recorded expert actions, rather than only prompting a frozen language model." },
   { id: "fallback", term: "Fallback", definition: "Switching to a second method when the first is stuck or unsure. ReAct and self-consistency hand off to each other this way." },
+  { id: "tree-of-thoughts", term: "Tree of Thoughts", definition: "A search over partial solutions. The model proposes several next thoughts, grades them, keeps the promising ones, and can back up from dead ends." },
+  { id: "thought-tot", term: "Thought (Tree of Thoughts)", definition: "One intermediate step big enough to judge, such as a single equation in the Game of 24, a word in a crossword, or a paragraph plan." },
+  { id: "state-evaluator", term: "State evaluator", definition: "The same language model, prompted to judge a partial solution: sure, maybe, or impossible, a score, or a vote against the other candidates." },
+  { id: "pruning", term: "Pruning", definition: "Dropping a branch the evaluator calls hopeless, so the search does not spend more steps on it." },
+  { id: "backtracking", term: "Backtracking", definition: "Returning to an earlier state after a branch fails, then trying a different thought. A single chain cannot do this." },
+  { id: "bfs", term: "Breadth-first search", definition: "Keep the b most promising states at each depth and expand all of them. Breadth 1 is a greedy chain." },
+  { id: "dfs", term: "Depth-first search", definition: "Follow the most promising branch first, prune states judged hopeless, and backtrack. Tree of Thoughts uses this on crosswords." },
+  { id: "game-of-24", term: "Game of 24", definition: "Make 24 from four numbers using addition, subtraction, multiplication, and division. Each thought in the paper is one intermediate equation." },
+  { id: "io-prompting", term: "IO prompting", definition: "Input-output prompting: ask for the answer directly, with no intermediate thoughts." },
 ];
