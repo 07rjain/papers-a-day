@@ -39,6 +39,7 @@ npm start
 | `/papers/14-chain-of-thought` | Chain-of-Thought Prompting Elicits Reasoning in Large Language Models (2022) |
 | `/papers/15-self-consistency` | Self-Consistency Improves Chain of Thought Reasoning in Language Models (2023) |
 | `/papers/16-react` | ReAct: Synergizing Reasoning and Acting in Language Models (2023) |
+| `/papers/17-tree-of-thoughts` | Tree of Thoughts: Deliberate Problem Solving with Large Language Models (2023) |
 
 Previous and next follow the sent date, oldest to newest. Unknown slugs 404.
 
