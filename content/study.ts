@@ -84,6 +84,11 @@ export const keyIdeas: Record<string, string[]> = {
     "The same model grades those partial states, then search keeps the promising ones and can prune or backtrack.",
     "On Game of 24, GPT-4 went from 4% with chain of thought to 74% with breadth 5. The cost is many more calls.",
   ],
+  "18-reflexion": [
+    "After a failed trial the model writes a short lesson. The last one to three lessons stay in the prompt, and the weights do not change.",
+    "A written lesson names the bad step. A reward of 0 does not, so a plain retry repeats the mistake.",
+    "It is only as good as the judge. HumanEval reached 91.0% versus GPT-4's 80.1%, but MBPP fell to 77.1% when self-tests passed wrong code.",
+  ],
 };
 
 /** What each paper takes from the one before it on the reading path. The first paper starts the path. */
@@ -113,6 +118,10 @@ export const pathLinks: { slug: string; buildsOn: string | null }[] = [
   {
     slug: "17-tree-of-thoughts",
     buildsOn: "chain-of-thought (paper 14), self-consistency (paper 15), and ReAct (paper 16); it leads on to process rewards and test-time reasoning",
+  },
+  {
+    slug: "18-reflexion",
+    buildsOn: "ReAct (paper 16), chain-of-thought (paper 14), and Tree of Thoughts (paper 17); unlike InstructGPT (paper 10), the weights stay frozen",
   },
 ];
 
@@ -178,4 +187,15 @@ export const glossary: { id: string; term: string; definition: string }[] = [
   { id: "dfs", term: "Depth-first search", definition: "Follow the most promising branch first, prune states judged hopeless, and backtrack. Tree of Thoughts uses this on crosswords." },
   { id: "game-of-24", term: "Game of 24", definition: "Make 24 from four numbers using addition, subtraction, multiplication, and division. Each thought in the paper is one intermediate equation." },
   { id: "io-prompting", term: "IO prompting", definition: "Input-output prompting: ask for the answer directly, with no intermediate thoughts." },
+  { id: "reflexion", term: "Reflexion", definition: "After a failed attempt, the model writes a short lesson and keeps the last few lessons in its prompt for the next try. The weights are not updated." },
+  { id: "verbal-reinforcement", term: "Verbal reinforcement", definition: "Improving an agent by adding lessons written in words to its prompt, instead of training its weights with a numeric reward." },
+  { id: "trial", term: "Trial", definition: "One full attempt at a task, from the start until the evaluator says pass or fail." },
+  { id: "self-reflection", term: "Self-reflection", definition: "The model's own written diagnosis of a failed attempt, plus a plan for the next try." },
+  { id: "episodic-memory", term: "Episodic memory", definition: "The last few reflections kept in the prompt. In this paper the window is usually one to three lessons." },
+  { id: "semantic-gradient", term: "Semantic gradient", definition: "The authors' name for a reflection: a direction to improve, written in words rather than as a numeric gradient." },
+  { id: "credit-assignment", term: "Credit assignment", definition: "Working out which step of a long attempt caused the failure. A reward of 0 does not say. A written lesson can." },
+  { id: "pass-at-1", term: "pass@1", definition: "The share of problems solved by the single answer the agent finally submits." },
+  { id: "false-positive-test", term: "False positive (tests)", definition: "The agent's own unit tests pass on code that is actually wrong, so it stops and submits the bug." },
+  { id: "humaneval", term: "HumanEval", definition: "A coding benchmark of Python (and, in this paper, Rust) problems, scored by whether the submitted function passes hidden tests." },
+  { id: "mbpp", term: "MBPP", definition: "Mostly Basic Python Problems, another coding benchmark. Reflexion's own tests were much less reliable here than on HumanEval." },
 ];
