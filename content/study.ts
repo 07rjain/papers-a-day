@@ -89,6 +89,11 @@ export const keyIdeas: Record<string, string[]> = {
     "A written lesson names the bad step. A reward of 0 does not, so a plain retry repeats the mistake.",
     "It is only as good as the judge. HumanEval reached 91.0% versus GPT-4's 80.1%, but MBPP fell to 77.1% when self-tests passed wrong code.",
   ],
+  "19-toolformer": [
+    "The model proposes API calls inside ordinary web text. A call is kept only if the call plus its answer lowers the loss on the next tokens by at least τf.",
+    "The comparison includes the call without its answer, so the result has to be what helps, not the question alone.",
+    "A 6.7B Toolformer beats 175B GPT-3 on math (ASDiv 40.4 versus 14.0). It still cannot chain one tool into another.",
+  ],
 };
 
 /** What each paper takes from the one before it on the reading path. The first paper starts the path. */
@@ -122,6 +127,11 @@ export const pathLinks: { slug: string; buildsOn: string | null }[] = [
   {
     slug: "18-reflexion",
     buildsOn: "ReAct (paper 16), chain-of-thought (paper 14), and Tree of Thoughts (paper 17); unlike InstructGPT (paper 10), the weights stay frozen",
+  },
+  {
+    slug: "19-toolformer",
+    buildsOn:
+      "ReAct (paper 16) and Reflexion (paper 18), which call tools by prompting, plus GPT-3 (paper 8) in-context examples and GPT-2 (paper 7); it leads on to function calling, retrieval-augmented generation, and agent tool use",
   },
 ];
 
@@ -198,4 +208,36 @@ export const glossary: { id: string; term: string; definition: string }[] = [
   { id: "false-positive-test", term: "False positive (tests)", definition: "The agent's own unit tests pass on code that is actually wrong, so it stops and submits the bug." },
   { id: "humaneval", term: "HumanEval", definition: "A coding benchmark of Python (and, in this paper, Rust) problems, scored by whether the submitted function passes hidden tests." },
   { id: "mbpp", term: "MBPP", definition: "Mostly Basic Python Problems, another coding benchmark. Reflexion's own tests were much less reliable here than on HumanEval." },
+  { id: "toolformer", term: "Toolformer", definition: "A model fine-tuned on tool calls it wrote into its own training text. A call is kept only when the call plus its result makes the next tokens easier to predict." },
+  { id: "tool-use", term: "Tool use", definition: "Letting a language model call an outside system, such as a calculator or a search index, and then continue writing with the result in the text." },
+  { id: "api-call", term: "API call", definition: "A tool request written as text, such as [QA(question) → answer]. The tool must take text in and return text." },
+  { id: "self-supervised", term: "Self-supervised learning", definition: "Training from the data itself. Here the signal is the model's own next-token loss, not a human label for where a tool should be used." },
+  { id: "in-context-learning", term: "In-context learning", definition: "The model picks up a pattern from examples written in the prompt, without a weight update. Toolformer uses a few such examples per tool to propose calls." },
+  { id: "sampling-threshold", term: "Sampling threshold (τs)", definition: "Only try a call where the model already gives the call token at least this probability. The paper uses 0.05, and 0 for the calculator and translation." },
+  { id: "filtering-threshold", term: "Filtering threshold (τf)", definition: "How much a call must lower the weighted next-token loss to be kept. The default is 1.0, and 0.5 for the calculator and translation." },
+  { id: "weighted-loss", term: "Weighted cross-entropy loss", definition: "The usual next-token loss, with the next token weighted most and the fifth least. The paper's raw weights are max(0, 1 − 0.2·t), then normalised." },
+  { id: "l-plus-minus", term: "L+ and L−", definition: "L+ is the weighted loss with the call and its answer. L− is the better of no call at all and the call without its answer. A call is kept when L− − L+ is at least τf." },
+  { id: "augmented-dataset", term: "Augmented dataset (C*)", definition: "The original web text with the kept API calls inserted. The words around the calls stay the same." },
+  { id: "ccnet", term: "CCNet", definition: "A cleaned slice of Common Crawl web text. Toolformer samples candidate calls from this corpus." },
+  { id: "gpt-j", term: "GPT-J", definition: "A 6.7 billion parameter language model. Toolformer fine-tunes this model, not a much larger one." },
+  { id: "atlas", term: "Atlas", definition: "A retrieval-augmented language model, fine-tuned on Natural Questions. Toolformer uses it as the question-answering tool." },
+  { id: "bm25", term: "BM25", definition: "A classic keyword search score. Toolformer's Wikipedia tool ranks the KILT Wikipedia dump with BM25." },
+  { id: "nllb", term: "NLLB", definition: "No Language Left Behind, a translation model. Toolformer uses the 600 million parameter version, into English, across 200 languages." },
+  { id: "fasttext", term: "fastText", definition: "A language-identification model. Toolformer uses it to pick the source language before calling the translator." },
+  { id: "zero-shot", term: "Zero-shot", definition: "Tested from instructions alone, with no worked examples in the prompt. Toolformer's reported scores are zero-shot." },
+  { id: "top-k-api", term: "Top-k API decoding", definition: "Start a tool call if the call token is among the k most likely next tokens. The paper uses k = 10, and at most one call per input." },
+  { id: "perplexity", term: "Perplexity", definition: "How surprised a model is by real text. Lower is better. Toolformer uses it to check that adding tool calls did not hurt ordinary language modeling." },
+  { id: "lama", term: "LAMA", definition: "A fact-completion benchmark. The model fills a missing fact, as in a cloze. Toolformer reports SQuAD, Google-RE, and T-REx." },
+  { id: "asdiv", term: "ASDiv", definition: "A set of math word problems. Toolformer scores 40.4 zero-shot, against GPT-3's 14.0." },
+  { id: "svamp", term: "SVAMP", definition: "A math word-problem set that varies the wording of the questions. Toolformer scores 29.4, against GPT-3's 10.0." },
+  { id: "mawps", term: "MAWPS", definition: "A math word-problem set. Toolformer scores 44.0, against GPT-3's 19.8." },
+  { id: "webquestions", term: "WebQuestions", definition: "An open-domain question-answering set. Toolformer scores 26.3, still below GPT-3's 29.0." },
+  { id: "natural-questions", term: "Natural Questions", definition: "Questions written by people for Google search, with Wikipedia answers. Toolformer scores 17.7." },
+  { id: "triviaqa", term: "TriviaQA", definition: "A trivia question-answering set. Toolformer scores 48.8, below GPT-3's 65.9." },
+  { id: "mlqa", term: "MLQA", definition: "A question-answering set in several languages. Toolformer uses the translation tool before answering." },
+  { id: "templama", term: "TempLAMA", definition: "A fact set whose answers change over time. Toolformer's gains here come mostly from search and question answering, not the calendar." },
+  { id: "dateset", term: "DateSet", definition: "Questions that need today's date. Toolformer uses the calendar on 54.8% of them and scores 27.3." },
+  { id: "emergence-with-scale", term: "Emergence with scale", definition: "In this paper, useful tool use shows up around 775 million parameters. Smaller GPT-2 models gain little, except on Wikipedia search." },
+  { id: "tool-chaining", term: "Tool chaining", definition: "Using one tool's output as the input to another tool. Toolformer cannot do this, because each training call was sampled on its own." },
+  { id: "talm", term: "TALM", definition: "Tool Augmented Language Models, an earlier method that also inserts tool calls, which Toolformer cites as related work." },
 ];
