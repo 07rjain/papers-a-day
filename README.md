@@ -41,6 +41,7 @@ npm start
 | `/papers/16-react` | ReAct: Synergizing Reasoning and Acting in Language Models (2023) |
 | `/papers/17-tree-of-thoughts` | Tree of Thoughts: Deliberate Problem Solving with Large Language Models (2023) |
 | `/papers/18-reflexion` | Reflexion: Language Agents with Verbal Reinforcement Learning (2023) |
+| `/papers/19-toolformer` | Toolformer: Language Models Can Teach Themselves to Use Tools (2023) |
 
 Previous and next follow the sent date, oldest to newest. Unknown slugs 404.
 
