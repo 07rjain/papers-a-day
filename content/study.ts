@@ -99,6 +99,11 @@ export const keyIdeas: Record<string, string[]> = {
     "RAG-Sequence uses one passage for the whole answer. RAG-Token can switch passages at every token.",
     "The index can be swapped without retraining. On Natural Questions, RAG-Sequence scored 44.5 exact match versus 34.5 for closed-book T5-11B.",
   ],
+  "21-constitutional-ai": [
+    "Harmlessness labels come from a short written constitution, not from people labeling harmful answers.",
+    "The model critiques and revises its own answers. An AI then ranks pairs, those labels train a preference model, and reinforcement learning runs as in RLHF.",
+    "The 52B model was more harmless than the human-feedback assistant at similar helpfulness, and it explains objections instead of refusing. Over-training made it preachy.",
+  ],
 };
 
 /** What each paper takes from the one before it on the reading path. The first paper starts the path. */
@@ -142,6 +147,11 @@ export const pathLinks: { slug: string; buildsOn: string | null }[] = [
     slug: "20-rag",
     buildsOn:
       "BERT (paper 6) encoders, seq2seq (paper 3) and the Transformer (paper 5) in BART, and GPT-3 (paper 8) closed-book knowledge; ReAct (paper 16) and Toolformer (paper 19) look facts up later, as tools",
+  },
+  {
+    slug: "21-constitutional-ai",
+    buildsOn:
+      "InstructGPT (paper 10) preference labels and RL, and DPO (paper 13); chain-of-thought (paper 14) in the critiques and labels, and Reflexion (paper 18) for self-written feedback that here becomes training data. It follows RAG (paper 20) on this reading path",
   },
 ];
 
@@ -292,4 +302,15 @@ export const glossary: { id: string; term: string; definition: string }[] = [
   { id: "index-hot-swap", term: "Index hot-swapping", definition: "Replacing the document index at test time, with no further training, so the model's answers follow the new documents." },
   { id: "provenance", term: "Provenance", definition: "Which retrieved passage an answer came from. RAG can show the passages it used." },
   { id: "retrieval-collapse", term: "Retrieval collapse", definition: "The retriever returns the same passages for every input, so the generator ignores them and behaves like a model with no retrieval." },
+  { id: "constitution", term: "Constitution", definition: "A short list of principles in ordinary language. Here it steers the model's critiques, revisions, and AI preference labels." },
+  { id: "red-teaming", term: "Red teaming", definition: "Writing prompts on purpose to make a model say something harmful, so the failure can be found and trained against." },
+  { id: "critique-revision", term: "Critique and revision", definition: "The model points out what is wrong with its own answer, against a sampled principle, then rewrites the answer." },
+  { id: "sl-cai", term: "SL-CAI", definition: "The supervised stage of Constitutional AI: a pretrained model fine-tuned on its own revised answers, plus ordinary helpful answers." },
+  { id: "rlaif", term: "RLAIF", definition: "Reinforcement learning from AI feedback. An AI, not a person, labels which of two answers is less harmful, and those labels train the preference model." },
+  { id: "preference-model", term: "Preference model", definition: "A model trained on comparisons so it can score answers. In RLHF and here, that score is the reward the policy chases." },
+  { id: "soft-label", term: "Soft label", definition: "A preference expressed as a probability, such as 0.73, rather than a hard 1 or 0. Chain-of-thought labels in this paper were clamped into 40–60%." },
+  { id: "evasive-answer", term: "Evasive answer", definition: "A reply that avoids harm by refusing to engage, such as \"I can't answer that\", and so is harmless and unhelpful at once." },
+  { id: "pareto-improvement", term: "Pareto improvement", definition: "Better on one goal without being worse on the other. Here, more harmless at about the same helpfulness." },
+  { id: "goodharting", term: "Goodharting", definition: "Chasing a proxy score until the behavior gets worse. Over-trained RL-CAI became harsh or added boilerplate such as \"you are valid, valued, and cared for\"." },
+  { id: "scaling-supervision", term: "Scaling supervision", definition: "Using an AI to help people supervise another AI, so the oversight can grow without a matching growth in human labels." },
 ];
