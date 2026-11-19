@@ -43,6 +43,7 @@ npm start
 | `/papers/18-reflexion` | Reflexion: Language Agents with Verbal Reinforcement Learning (2023) |
 | `/papers/19-toolformer` | Toolformer: Language Models Can Teach Themselves to Use Tools (2023) |
 | `/papers/20-rag` | Retrieval-Augmented Generation for Knowledge-Intensive NLP Tasks (2020) |
+| `/papers/21-constitutional-ai` | Constitutional AI: Harmlessness from AI Feedback (2022) |
 
 Previous and next follow the sent date, oldest to newest. Unknown slugs 404.
 
