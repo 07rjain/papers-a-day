@@ -104,6 +104,11 @@ export const keyIdeas: Record<string, string[]> = {
     "The model critiques and revises its own answers. An AI then ranks pairs, those labels train a preference model, and reinforcement learning runs as in RLHF.",
     "The 52B model was more harmless than the human-feedback assistant at similar helpfulness, and it explains objections instead of refusing. Over-training made it preachy.",
   ],
+  "22-mixtral": [
+    "Each feed-forward block becomes eight expert copies. A router sends every token to only the top two.",
+    "The model stores about 47 billion parameters, but each token uses about 13 billion, because attention is shared and the other experts are not computed.",
+    "Experts line up with syntax, not with topics. Mixtral matches or beats Llama 2 70B on most benchmarks, with large gains on math and code.",
+  ],
 };
 
 /** What each paper takes from the one before it on the reading path. The first paper starts the path. */
@@ -152,6 +157,11 @@ export const pathLinks: { slug: string; buildsOn: string | null }[] = [
     slug: "21-constitutional-ai",
     buildsOn:
       "InstructGPT (paper 10) preference labels and RL, and DPO (paper 13); chain-of-thought (paper 14) in the critiques and labels, and Reflexion (paper 18) for self-written feedback that here becomes training data. It follows RAG (paper 20) on this reading path",
+  },
+  {
+    slug: "22-mixtral",
+    buildsOn:
+      "the Transformer (paper 5) feed-forward block, Scaling Laws (paper 9) and Chinchilla (paper 11) on size versus compute, and InstructGPT (paper 10) plus DPO (paper 13) for the chat model. It follows Constitutional AI (paper 21) on this reading path",
   },
 ];
 
@@ -313,4 +323,17 @@ export const glossary: { id: string; term: string; definition: string }[] = [
   { id: "pareto-improvement", term: "Pareto improvement", definition: "Better on one goal without being worse on the other. Here, more harmless at about the same helpfulness." },
   { id: "goodharting", term: "Goodharting", definition: "Chasing a proxy score until the behavior gets worse. Over-trained RL-CAI became harsh or added boilerplate such as \"you are valid, valued, and cared for\"." },
   { id: "scaling-supervision", term: "Scaling supervision", definition: "Using an AI to help people supervise another AI, so the oversight can grow without a matching growth in human labels." },
+  { id: "ffn", term: "Feed-forward network", definition: "The part of a Transformer block that processes each token on its own, after attention. Most of a model's parameters live here." },
+  { id: "swiglu", term: "SwiGLU", definition: "The feed-forward variant Mixtral uses: a gated network with three weight matrices instead of two." },
+  { id: "mixture-of-experts", term: "Mixture of experts", definition: "A layer with several sub-networks, the experts, and a router that decides which ones handle each token." },
+  { id: "expert", term: "Expert", definition: "One of the eight feed-forward networks in a Mixtral layer. Only two of them run for a given token." },
+  { id: "router", term: "Router", definition: "A small linear layer that scores the experts for a token. Mixtral's router is a 4096 by 8 matrix." },
+  { id: "top-k", term: "Top-K", definition: "Keep the K highest scores and drop the rest. Mixtral uses K = 2, so six experts are skipped." },
+  { id: "gate-weight", term: "Gate weight", definition: "The softmax weight on a chosen expert's output. The two Mixtral gates for a token sum to 1." },
+  { id: "sparse-parameters", term: "Sparse parameters", definition: "Every parameter stored in the model. Mixtral stores about 47 billion, and all of them have to fit in memory." },
+  { id: "active-parameters", term: "Active parameters", definition: "Parameters actually used to process one token. Mixtral uses about 13 billion per token." },
+  { id: "expert-parallelism", term: "Expert parallelism", definition: "Putting different experts on different GPUs and sending each token to the GPUs that hold its chosen experts." },
+  { id: "load-balancing", term: "Load balancing", definition: "Keeping experts, and the GPUs that hold them, evenly busy so one popular expert does not stall the batch." },
+  { id: "passkey-retrieval", term: "Passkey retrieval", definition: "A test that hides a number in a long text and asks the model to find it. Mixtral scores 100% at every length and position in its 32,000-token window." },
+  { id: "open-weights", term: "Open weights", definition: "The trained model can be downloaded. Mixtral's base and instruct weights are released under the Apache 2.0 license." },
 ];

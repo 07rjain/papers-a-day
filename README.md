@@ -44,6 +44,7 @@ npm start
 | `/papers/19-toolformer` | Toolformer: Language Models Can Teach Themselves to Use Tools (2023) |
 | `/papers/20-rag` | Retrieval-Augmented Generation for Knowledge-Intensive NLP Tasks (2020) |
 | `/papers/21-constitutional-ai` | Constitutional AI: Harmlessness from AI Feedback (2022) |
+| `/papers/22-mixtral` | Mixtral of Experts (2024) |
 
 Previous and next follow the sent date, oldest to newest. Unknown slugs 404.
 
