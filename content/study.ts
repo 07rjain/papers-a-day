@@ -109,6 +109,11 @@ export const keyIdeas: Record<string, string[]> = {
     "The model stores about 47 billion parameters, but each token uses about 13 billion, because attention is shared and the other experts are not computed.",
     "Experts line up with syntax, not with topics. Mixtral matches or beats Llama 2 70B on most benchmarks, with large gains on math and code.",
   ],
+  "23-deepseek-r1": [
+    "R1-Zero is trained with reinforcement learning only. The reward checks the final answer. Nobody writes the reasoning.",
+    "GRPO scores each answer against its own group: (reward − group mean) / group standard deviation. There is no critic network.",
+    "Longer thinking appears on its own. A cold start makes it readable. Distilling those outputs into Qwen-32B beat running the same RL on that small model, 72.6 versus 47.0 on AIME.",
+  ],
 };
 
 /** What each paper takes from the one before it on the reading path. The first paper starts the path. */
@@ -162,6 +167,11 @@ export const pathLinks: { slug: string; buildsOn: string | null }[] = [
     slug: "22-mixtral",
     buildsOn:
       "the Transformer (paper 5) feed-forward block, Scaling Laws (paper 9) and Chinchilla (paper 11) on size versus compute, and InstructGPT (paper 10) plus DPO (paper 13) for the chat model. It follows Constitutional AI (paper 21) on this reading path",
+  },
+  {
+    slug: "23-deepseek-r1",
+    buildsOn:
+      "chain-of-thought (paper 14), self-consistency (paper 15), InstructGPT (paper 10) and DPO (paper 13), and Constitutional AI (paper 21) for feedback without human harm labels. DeepSeek-V3 is a mixture of experts, as in Mixtral (paper 22). It follows Mixtral on this reading path",
   },
 ];
 
@@ -336,4 +346,19 @@ export const glossary: { id: string; term: string; definition: string }[] = [
   { id: "load-balancing", term: "Load balancing", definition: "Keeping experts, and the GPUs that hold them, evenly busy so one popular expert does not stall the batch." },
   { id: "passkey-retrieval", term: "Passkey retrieval", definition: "A test that hides a number in a long text and asks the model to find it. Mixtral scores 100% at every length and position in its 32,000-token window." },
   { id: "open-weights", term: "Open weights", definition: "The trained model can be downloaded. Mixtral's base and instruct weights are released under the Apache 2.0 license." },
+  { id: "reinforcement-learning", term: "Reinforcement learning", definition: "Learning by trying an action, receiving a reward, and making the rewarded behaviour more likely next time." },
+  { id: "policy", term: "Policy", definition: "The model being trained, treated as a strategy for choosing the next token." },
+  { id: "sft", term: "Supervised fine-tuning", definition: "Training on examples of the desired output that were written or chosen in advance. R1-Zero skips this step." },
+  { id: "grpo", term: "GRPO", definition: "Group Relative Policy Optimization. Sample a group of answers to one question and use that group's mean and standard deviation as the baseline, instead of a critic network." },
+  { id: "advantage", term: "Advantage", definition: "How much better an answer did than expected. Here it is (reward − group mean) / group standard deviation." },
+  { id: "critic-value", term: "Critic", definition: "A second network, used in PPO, that predicts the expected reward. GRPO does not train one." },
+  { id: "rule-based-reward", term: "Rule-based reward", definition: "A reward computed by a program, such as checking a boxed maths answer or running a code test, rather than by another neural network." },
+  { id: "reward-hacking", term: "Reward hacking", definition: "Finding a way to score high on the reward without actually solving the task. A neural reward model is easier to game than a checker." },
+  { id: "kl-penalty", term: "KL penalty", definition: "A cost for drifting too far from a reference copy of the model, so each training step stays small." },
+  { id: "cold-start", term: "Cold start", definition: "A small supervised step before reinforcement learning, so training begins from readable reasoning instead of from a raw base model." },
+  { id: "rejection-sampling", term: "Rejection sampling", definition: "Generate many answers and keep only the ones that are correct and readable, then train on those." },
+  { id: "distillation", term: "Distillation", definition: "Training a smaller model on a larger model's outputs. Here, small Qwen and Llama models are fine-tuned on DeepSeek-R1's answers, with no extra RL." },
+  { id: "cons-at-64", term: "cons@64", definition: "Accuracy of the majority answer among 64 samples. pass@1 is the average accuracy of single samples. On AIME, R1-Zero reached 71.0% pass@1 and 86.7% cons@64." },
+  { id: "process-reward-model", term: "Process reward model", definition: "A model that scores each intermediate reasoning step. DeepSeek tried one and dropped it: steps are hard to define, and a learned step-scorer can be gamed." },
+  { id: "mcts", term: "Monte Carlo tree search", definition: "Exploring a tree of partial solutions, as in AlphaGo. DeepSeek tried it for reasoning and dropped it: the space of tokens is far larger than chess." },
 ];
