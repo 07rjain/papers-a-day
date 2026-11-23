@@ -21,13 +21,14 @@ import { meta as toolformer } from "@/content/papers/19-toolformer/content";
 import { meta as rag } from "@/content/papers/20-rag/content";
 import { meta as cai } from "@/content/papers/21-constitutional-ai/content";
 import { meta as mixtral } from "@/content/papers/22-mixtral/content";
+import { meta as deepseekR1 } from "@/content/papers/23-deepseek-r1/content";
 
 /**
  * Every paper's metadata. Interactive demos are registered separately in
  * `content/interactives.tsx` so the homepage does not load them.
  * Adding a paper: see README, "Adding a new paper".
  */
-export const papers: PaperMeta[] = [word2vec, glove, seq2seq, attention, transformer, bert, gpt2, gpt3, scaling, instruct, chinchilla, lora, dpo, cot, selfConsistency, react, tot, reflexion, toolformer, rag, cai, mixtral];
+export const papers: PaperMeta[] = [word2vec, glove, seq2seq, attention, transformer, bert, gpt2, gpt3, scaling, instruct, chinchilla, lora, dpo, cot, selfConsistency, react, tot, reflexion, toolformer, rag, cai, mixtral, deepseekR1];
 
 export function learningOrder(): PaperMeta[] {
   return [...papers].sort((a, b) => a.sent.localeCompare(b.sent) || a.number - b.number);

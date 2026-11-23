@@ -45,6 +45,7 @@ npm start
 | `/papers/20-rag` | Retrieval-Augmented Generation for Knowledge-Intensive NLP Tasks (2020) |
 | `/papers/21-constitutional-ai` | Constitutional AI: Harmlessness from AI Feedback (2022) |
 | `/papers/22-mixtral` | Mixtral of Experts (2024) |
+| `/papers/23-deepseek-r1` | DeepSeek-R1: Incentivizing Reasoning Capability in LLMs via Reinforcement Learning (2025) |
 
 Previous and next follow the sent date, oldest to newest. Unknown slugs 404.
 
