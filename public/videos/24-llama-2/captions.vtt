@@ -1,0 +1,127 @@
+WEBVTT
+
+00:00:00.000 --> 00:00:04.671
+A language model can finish a sentence. How do you teach it to
+answer a question,
+
+00:00:04.671 --> 00:00:08.901
+judge when to refuse, and remember an instruction several turns
+later?
+
+00:00:08.901 --> 00:00:12.980
+Llama 2 tackles these problems by changing what the model
+practices,
+
+00:00:12.980 --> 00:00:15.422
+and by changing how its answers are judged.
+
+00:00:16.072 --> 00:00:20.047
+Start on the left. Meta pretrained Llama 2 on two trillion
+tokens.
+
+00:00:20.047 --> 00:00:24.381
+A token is a piece of text. The model learned by predicting the
+next piece.
+
+00:00:24.381 --> 00:00:27.787
+Its context window was four thousand ninety-six tokens.
+
+00:00:27.787 --> 00:00:32.272
+The thirty-four and seventy billion parameter models used
+grouped-query attention.
+
+00:00:32.272 --> 00:00:37.674
+Several query heads share keys and values, so generation can use
+a smaller cache.
+
+00:00:38.324 --> 00:00:42.125
+Move one step to the right. Human-written examples show the
+model
+
+00:00:42.125 --> 00:00:44.288
+how a good assistant might respond.
+
+00:00:44.288 --> 00:00:48.228
+The team collected twenty-seven thousand five hundred forty
+annotations
+
+00:00:48.228 --> 00:00:49.880
+for supervised fine-tuning.
+
+00:00:49.880 --> 00:00:53.820
+That gives the model a starting point. It can now draft replies
+
+00:00:53.820 --> 00:00:57.992
+for people to compare, and those comparisons become the next
+training signal.
+
+00:00:58.642 --> 00:01:02.164
+One scorer learns which answers people find more helpful.
+
+00:01:02.164 --> 00:01:05.151
+Another learns which answers people find safer.
+
+00:01:05.151 --> 00:01:09.660
+The paper gives a routing rule for reward: use safety on a
+safety prompt,
+
+00:01:09.660 --> 00:01:13.611
+or when the answer's safety score falls below zero point one
+five.
+
+00:01:13.611 --> 00:01:18.329
+Otherwise use helpfulness. On borderline prompts, stronger
+safety tuning
+
+00:01:18.329 --> 00:01:21.700
+could also make the assistant refuse harmless requests.
+
+00:01:22.349 --> 00:01:27.555
+In rejection sampling, generate several replies and train on the
+best-scored ones.
+
+00:01:27.555 --> 00:01:32.655
+In PPO, use the reward to update the probabilities of generated
+replies,
+
+00:01:32.655 --> 00:01:35.666
+with a penalty for drifting too far from a reference model.
+
+00:01:35.666 --> 00:01:39.095
+Better models produce new replies for people to compare.
+
+00:01:39.095 --> 00:01:42.826
+The team iterated from RLHF version one to version five.
+
+00:01:43.476 --> 00:01:48.693
+Now follow the same assistant into a conversation. Say the
+instruction is, answer in French.
+
+00:01:48.693 --> 00:01:53.166
+Ghost Attention repeats the instruction while generating
+practice conversations.
+
+00:01:53.166 --> 00:01:56.909
+For fine-tuning, it keeps the instruction only on the first turn
+
+00:01:56.909 --> 00:02:01.092
+and trains on the final reply. Earlier turns provide context.
+
+00:02:01.092 --> 00:02:06.042
+The paper reports consistency for twenty or more turns, up to
+the context limit.
+
+00:02:06.692 --> 00:02:10.991
+Meta released base and chat weights in seven, thirteen, and
+seventy billion
+
+00:02:10.991 --> 00:02:13.689
+parameter sizes under the Llama 2 license.
+
+00:02:13.689 --> 00:02:17.466
+The lesson is simple. Show the model what good behavior looks
+like,
+
+00:02:17.466 --> 00:02:21.522
+score the behaviors you care about, and practice them in the
+setting where they matter.

@@ -4,7 +4,8 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "start": "next start"
+    "start": "next start",
+    "lint": "eslint app components content"
   },
   "dependencies": {
     "next": "^16.4.5",
@@ -17,6 +18,8 @@
     "@types/react": "^19.1.0",
     "@types/react-dom": "^19.1.0",
     "@types/three": "^0.187.0",
-    "typescript": "^5.8.0"
+    "eslint": "^10.15.0",
+    "typescript": "^5.8.0",
+    "typescript-eslint": "^8.74.0"
   }
 }

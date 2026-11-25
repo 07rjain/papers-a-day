@@ -37,6 +37,20 @@ export default async function PaperPage({ params }: { params: Promise<{ slug: st
   const { prev, next } = paperNeighbors(paper.slug);
   const Interactive = interactives[paper.slug];
 
+  const recap = keyIdeas[paper.slug] ? (
+    <section className="key-ideas" aria-labelledby="ideas-heading">
+      <h2 id="ideas-heading">Key ideas</h2>
+      <ul>
+        {keyIdeas[paper.slug].map((idea) => (
+          <li key={idea}>{idea}</li>
+        ))}
+      </ul>
+      <p>
+        <Link href="/glossary">Glossary</Link>
+      </p>
+    </section>
+  ) : null;
+
   return (
     <article className="paper">
       <p className="kicker">
@@ -55,21 +69,29 @@ export default async function PaperPage({ params }: { params: Promise<{ slug: st
       <p className="byline">
         {paper.authors} — {paper.year}
       </p>
+      {paper.video && (
+        <>
+          <p className="lede"><strong>Big idea.</strong> {paper.hook}</p>
+          {paper.abstract && <p>{paper.abstract}</p>}
+          <section aria-labelledby="video-heading">
+            <h2 id="video-heading">Video explainer</h2>
+            <video
+              controls
+              playsInline
+              preload="metadata"
+              poster={paper.video.poster}
+              style={{ width: "100%", aspectRatio: "16 / 9", display: "block" }}
+            >
+              <source src={paper.video.src} type="video/mp4" />
+              <track kind="captions" src={paper.video.captions} srcLang="en" label="English" />
+              <a href={paper.video.src}>Download the video</a>
+            </video>
+          </section>
+        </>
+      )}
       <StudyStatus slug={paper.slug} />
-      {keyIdeas[paper.slug] ? (
-        <section className="key-ideas" aria-labelledby="ideas-heading">
-          <h2 id="ideas-heading">Key ideas</h2>
-          <ul>
-            {keyIdeas[paper.slug].map((idea) => (
-              <li key={idea}>{idea}</li>
-            ))}
-          </ul>
-          <p>
-            <Link href="/glossary">Glossary</Link>
-          </p>
-        </section>
-      ) : null}
 
+      {!paper.video && recap}
       <Explanation paragraphs={paper.explanation} />
 
       {Interactive ? (
@@ -77,6 +99,8 @@ export default async function PaperPage({ params }: { params: Promise<{ slug: st
       ) : (
         <p className="k-text">The interactive page for this paper is not wired up yet.</p>
       )}
+
+      {paper.video && recap}
 
       <section className="question" aria-labelledby="question-heading">
         <h2 id="question-heading">Question for today</h2>

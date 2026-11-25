@@ -29,4 +29,5 @@ export const interactives: Record<string, ComponentType> = {
   "21-constitutional-ai": dynamic(() => import("@/content/papers/21-constitutional-ai/interactive")),
   "22-mixtral": dynamic(() => import("@/content/papers/22-mixtral/interactive")),
   "23-deepseek-r1": dynamic(() => import("@/content/papers/23-deepseek-r1/interactive")),
+  "24-llama-2": dynamic(() => import("@/content/papers/24-llama-2/interactive")),
 };

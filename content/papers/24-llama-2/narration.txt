@@ -1,0 +1,48 @@
+# How do you turn a text predictor into an assistant?
+A language model can finish a sentence. How do you teach it to answer a question,
+judge when to refuse, and remember an instruction several turns later?
+Llama Two tackles these problems by changing what the model practices,
+and by changing how its answers are judged.
+
+# Setup · Build a base model
+Start on the left. Meta pretrained Llama Two on two trillion tokens.
+A token is a piece of text. The model learned by predicting the next piece.
+Its context window was four thousand ninety-six tokens.
+The thirty-four and seventy billion parameter models used grouped-query attention.
+Several query heads share keys and values, so generation can use a smaller cache.
+
+# 1 · Demonstrate good answers
+Move one step to the right. Human-written examples show the model
+how a good assistant might respond.
+The team collected twenty-seven thousand five hundred forty annotations
+for supervised fine-tuning.
+That gives the model a starting point. It can now draft replies
+for people to compare, and those comparisons become the next training signal.
+
+# 2 · Learn two kinds of feedback
+One scorer learns which answers people find more helpful.
+Another learns which answers people find safer.
+The paper gives a routing rule for reward: use safety on a safety prompt,
+or when the answer's safety score falls below zero point one five.
+Otherwise use helpfulness. On borderline prompts, stronger safety tuning
+could also make the assistant refuse harmless requests.
+
+# 3 · Improve, then repeat
+In rejection sampling, generate several replies and train on the best-scored ones.
+In P P O, use the reward to update the probabilities of generated replies,
+with a penalty for drifting too far from a reference model.
+Better models produce new replies for people to compare.
+The team iterated from R L H F version one to version five.
+
+# 4 · Carry an instruction across turns
+Now follow the same assistant into a conversation. Say the instruction is, answer in French.
+Ghost Attention repeats the instruction while generating practice conversations.
+For fine-tuning, it keeps the instruction only on the first turn
+and trains on the final reply. Earlier turns provide context.
+The paper reports consistency for twenty or more turns, up to the context limit.
+
+# Lesson · Train the behavior you want to see
+Meta released base and chat weights in seven, thirteen, and seventy billion
+parameter sizes under the Llama Two license.
+The lesson is simple. Show the model what good behavior looks like,
+score the behaviors you care about, and practice them in the setting where they matter.

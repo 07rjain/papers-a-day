@@ -38,7 +38,6 @@ export function WordMap3D() {
     const canvas = canvasRef.current;
     if (!canvas) return;
     let dead = false;
-    let raf = 0;
     let cleanup = () => {};
     import("three").then((THREE) => {
       if (dead) return;
