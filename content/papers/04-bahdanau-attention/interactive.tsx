@@ -88,10 +88,6 @@ export default function App() {
 
   const [picks, setPicks] = useState<(number | null)[]>(QUIZ.map(() => null));
 
-  const tok = (label: string, on: boolean, color: string, key: number) => (
-    <span key={key} style={{ display: "inline-block", padding: "4px 9px", margin: 3, borderRadius: 6, fontFamily: t.font.family, fontSize: 14, background: on ? color : t.bg.base, color: on ? "#000000" : t.text.secondary, border: `1px solid ${t.border.default}` }}>{label}</span>
-  );
-
   return (
     <Page title="Attention, explained by playing with it" summary="Daily paper #4: Bahdanau, Cho and Bengio (2014), 'Neural Machine Translation by Jointly Learning to Align and Translate'. Yesterday's seq2seq squeezed a whole sentence into one vector. This paper lets the decoder look back at every input word, and that idea, attention, is the seed of the Transformer.">
       <Section heading="The big idea in one line">

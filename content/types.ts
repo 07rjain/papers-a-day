@@ -16,6 +16,8 @@ export type PaperMeta = {
   hook: string;
   /** Paragraphs. A string is text; `{ text, href }` is a link. */
   explanation: Inline[][];
+  abstract?: string;
+  video?: { src: string; poster: string; captions: string };
   question: string;
   answer: string;
 };

@@ -114,6 +114,11 @@ export const keyIdeas: Record<string, string[]> = {
     "GRPO scores each answer against its own group: (reward − group mean) / group standard deviation. There is no critic network.",
     "Longer thinking appears on its own. A cold start makes it readable. Distilling those outputs into Qwen-32B beat running the same RL on that small model, 72.6 versus 47.0 on AIME.",
   ],
+  "24-llama-2": [
+    "Pretraining teaches next-token prediction. Supervised examples teach the first version of the assistant.",
+    "Separate helpfulness and safety reward models guide iterative rejection sampling and PPO.",
+    "Ghost Attention trains later replies to follow a system instruction that appears only at the start.",
+  ],
 };
 
 /** What each paper takes from the one before it on the reading path. The first paper starts the path. */
@@ -173,9 +178,13 @@ export const pathLinks: { slug: string; buildsOn: string | null }[] = [
     buildsOn:
       "chain-of-thought (paper 14), self-consistency (paper 15), InstructGPT (paper 10) and DPO (paper 13), and Constitutional AI (paper 21) for feedback without human harm labels. DeepSeek-V3 is a mixture of experts, as in Mixtral (paper 22). It follows Mixtral on this reading path",
   },
+  { slug: "24-llama-2", buildsOn: "Chinchilla (paper 11) on pretraining data, InstructGPT (paper 10) on human feedback, and Constitutional AI (paper 21) on balancing helpfulness and safety" },
 ];
 
 export const glossary: { id: string; term: string; definition: string }[] = [
+  { id: "gqa", term: "Grouped-query attention", definition: "Several query heads share each set of key and value heads, reducing the cache needed for generation." },
+  { id: "ghost-attention", term: "Ghost Attention", definition: "A fine-tuning method that teaches later replies to follow an instruction shown at the start of a conversation." },
+  { id: "false-refusal", term: "False refusal", definition: "A refusal to answer a request that could safely be answered." },
   { id: "embedding", term: "Embedding", definition: "A list of numbers that stands for a word or sentence, so similar meanings can sit near each other." },
   { id: "attention", term: "Attention", definition: "A weighted average over other vectors. The weights say how much each one matters for the current step, and they sum to 1." },
   { id: "softmax", term: "Softmax", definition: "Turns a list of scores into positive weights that add up to 1." },
