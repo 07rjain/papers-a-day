@@ -119,6 +119,11 @@ export const keyIdeas: Record<string, string[]> = {
     "Separate helpfulness and safety reward models guide iterative rejection sampling and PPO.",
     "Ghost Attention trains later replies to follow a system instruction that appears only at the start.",
   ],
+  "25-flashattention": [
+    "Tiles keep the score and probability matrices off HBM while preserving dense attention’s mathematical result.",
+    "Online softmax rescales earlier contributions when the row maximum changes.",
+    "Rebuilding tiles during backpropagation keeps saved attention storage linear in sequence length at fixed head dimension. Dense pairwise work remains quadratic.",
+  ],
 };
 
 /** What each paper takes from the one before it on the reading path. The first paper starts the path. */
@@ -179,6 +184,7 @@ export const pathLinks: { slug: string; buildsOn: string | null }[] = [
       "chain-of-thought (paper 14), self-consistency (paper 15), InstructGPT (paper 10) and DPO (paper 13), and Constitutional AI (paper 21) for feedback without human harm labels. DeepSeek-V3 is a mixture of experts, as in Mixtral (paper 22). It follows Mixtral on this reading path",
   },
   { slug: "24-llama-2", buildsOn: "Chinchilla (paper 11) on pretraining data, InstructGPT (paper 10) on human feedback, and Constitutional AI (paper 21) on balancing helpfulness and safety" },
+  { slug: "25-flashattention", buildsOn: "the Transformer (paper 5) and GPT-style causal attention, with applications to longer-context language model training" },
 ];
 
 export const glossary: { id: string; term: string; definition: string }[] = [
@@ -370,4 +376,10 @@ export const glossary: { id: string; term: string; definition: string }[] = [
   { id: "cons-at-64", term: "cons@64", definition: "Accuracy of the majority answer among 64 samples. pass@1 is the average accuracy of single samples. On AIME, R1-Zero reached 71.0% pass@1 and 86.7% cons@64." },
   { id: "process-reward-model", term: "Process reward model", definition: "A model that scores each intermediate reasoning step. DeepSeek tried one and dropped it: steps are hard to define, and a learned step-scorer can be gamed." },
   { id: "mcts", term: "Monte Carlo tree search", definition: "Exploring a tree of partial solutions, as in AlphaGo. DeepSeek tried it for reasoning and dropped it: the space of tokens is far larger than chess." },
+  { id: "hbm", term: "High-bandwidth memory (HBM)", definition: "Large GPU main memory that holds model data and activations. Access is slower than on-chip SRAM." },
+  { id: "sram", term: "On-chip SRAM", definition: "Small, fast memory close to GPU compute units. FlashAttention computes each score tile here." },
+  { id: "tiling", term: "Tiling", definition: "Split an operation into blocks small enough for fast local memory, and reuse data while it is there." },
+  { id: "online-softmax", term: "Online softmax", definition: "Compute softmax across chunks by updating the maximum and rescaling the running exponential sum as scores arrive." },
+  { id: "recomputation", term: "Recomputation", definition: "Rebuild an intermediate when needed instead of retaining it. FlashAttention rebuilds probability tiles for gradients." },
+  { id: "block-sparse-attention", term: "Block-sparse attention", definition: "Compute selected tiles of the attention matrix and mask out the others. The resulting attention follows that sparse pattern." },
 ];

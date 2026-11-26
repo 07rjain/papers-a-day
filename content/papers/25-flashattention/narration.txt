@@ -1,0 +1,42 @@
+# Why is exact attention so expensive?
+When a Transformer reads a long sequence, each query can compare itself with every key.
+Double the sequence length, and the number of scores quadruples.
+A conventional implementation writes that whole grid to GPU memory, then reads it for softmax.
+What if we could get the same answer without ever saving the grid?
+
+# The cost of moving data
+The large box is H B M, the GPU's main memory. It holds the queries, keys, and values.
+The smaller box is on-chip S RAM. It is much faster, but there is far less of it.
+On the A one hundred, the paper estimates about nineteen terabytes per second for on-chip memory.
+Main memory delivers one point five to two terabytes per second.
+
+# 1 · Compute one tile at a time
+Take a block of keys and values into fast memory. Bring in a block of queries.
+Their dot products fill one tile of the score grid.
+While that tile is still on chip, compute exponentials and combine them with the values.
+Reuse the key and value block with more queries, then move to the next key block.
+The grid maps the work. It never needs to exist as a full array in main memory.
+
+# 2 · Renormalize as scores arrive
+Softmax divides each exponential by the sum across its entire row. A tile sees only part of that row.
+Keep a running maximum, a sum of exponentials, and a weighted sum of values for each query.
+When a new score raises the maximum, rescale both old sums to use the new reference.
+Add the new tile's contributions, and divide the weighted sum by the exponential sum.
+After the last tile, this is the same mathematical result as full softmax.
+
+# 3 · Rebuild tiles for gradients
+Training also needs attention probabilities in the backward pass.
+Keep the output and a small normalization summary for each row.
+Reload the inputs and rebuild the probability tiles as gradients need them.
+The extra arithmetic buys fewer trips to main memory. The saved attention state grows linearly with sequence length.
+
+# 4 · Measure the trade
+The paper reports up to three times faster attention than PyTorch and up to twenty times better memory efficiency than exact baselines.
+BERT large reached its training target in seventeen point four minutes, compared with twenty.
+G P T two medium trained in six point nine days, compared with twenty-one for Hugging Face.
+Dense Flash Attention reached sixty-one point four percent on Path X at sixteen K.
+The block-sparse variant reached sixty-three point one percent on Path two fifty-six at sixty-four K.
+
+# The lesson
+Dense attention still does pairwise work.
+Change where the intermediate results live, and the same calculation can become much cheaper to run.

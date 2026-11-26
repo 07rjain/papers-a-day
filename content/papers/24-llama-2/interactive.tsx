@@ -3,7 +3,7 @@
 import { useMemo, useState } from "react";
 import { Page, Section, Segmented, Text, Toggle } from "grok/canvas";
 import { QuizSync } from "@/components/study/progress";
-import { Scene } from "./scene";
+import { Scene } from "@/components/study/BlockScene";
 
 const MODEL = "#a9bdff";
 const HELP = "#66e5be";

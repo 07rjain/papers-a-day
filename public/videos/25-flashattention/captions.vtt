@@ -1,0 +1,113 @@
+WEBVTT
+
+00:00:00.000 --> 00:00:05.310
+When a Transformer reads a long sequence, each query can compare
+itself with every key.
+
+00:00:05.310 --> 00:00:08.971
+Double the sequence length, and the number of scores quadruples.
+
+00:00:08.971 --> 00:00:14.524
+A conventional implementation writes that whole grid to GPU
+memory, then reads it for softmax.
+
+00:00:14.524 --> 00:00:17.941
+What if we could get the same answer without ever saving the
+grid?
+
+00:00:18.591 --> 00:00:25.399
+The large box is HBM, the GPU's main memory. It holds the
+queries, keys, and values.
+
+00:00:25.399 --> 00:00:30.581
+The smaller box is on-chip SRAM. It is much faster, but there
+is far less of it.
+
+00:00:30.581 --> 00:00:35.774
+On the A100, the paper estimates about nineteen
+terabytes per second for on-chip memory.
+
+00:00:35.774 --> 00:00:39.691
+Main memory delivers one point five to two terabytes per second.
+
+00:00:40.341 --> 00:00:44.896
+Take a block of keys and values into fast memory. Bring in a
+block of queries.
+
+00:00:44.896 --> 00:00:47.918
+Their dot products fill one tile of the score grid.
+
+00:00:47.918 --> 00:00:52.880
+While that tile is still on chip, compute exponentials and
+combine them with the values.
+
+00:00:52.880 --> 00:00:57.783
+Reuse the key and value block with more queries, then move to
+the next key block.
+
+00:00:57.783 --> 00:01:02.477
+The grid maps the work. It never needs to exist as a full array
+in main memory.
+
+00:01:03.127 --> 00:01:09.261
+Softmax divides each exponential by the sum across its entire
+row. A tile sees only part of that row.
+
+00:01:09.261 --> 00:01:14.640
+Keep a running maximum, a sum of exponentials, and a weighted
+sum of values for each query.
+
+00:01:14.640 --> 00:01:20.031
+When a new score raises the maximum, rescale both old sums to
+use the new reference.
+
+00:01:20.031 --> 00:01:25.062
+Add the new tile's contributions, and divide the weighted sum by
+the exponential sum.
+
+00:01:25.062 --> 00:01:29.838
+After the last tile, this is the same mathematical result as
+full softmax.
+
+00:01:30.488 --> 00:01:34.161
+Training also needs attention probabilities in the backward
+pass.
+
+00:01:34.161 --> 00:01:37.833
+Keep the output and a small normalization summary for each row.
+
+00:01:37.833 --> 00:01:42.179
+Reload the inputs and rebuild the probability tiles as gradients
+need them.
+
+00:01:42.179 --> 00:01:48.592
+The extra arithmetic buys fewer trips to main memory. The saved
+attention state grows linearly with sequence length.
+
+00:01:49.242 --> 00:01:57.152
+The paper reports up to three times faster attention than
+PyTorch and up to twenty times better memory efficiency than
+exact baselines.
+
+00:01:57.152 --> 00:02:02.241
+BERT large reached its training target in seventeen point four
+minutes, compared with twenty.
+
+00:02:02.241 --> 00:02:07.830
+GPT-2 medium trained in six point nine days, compared with
+twenty-one for Hugging Face.
+
+00:02:07.830 --> 00:02:12.861
+Dense FlashAttention reached sixty-one point four percent on
+Path-X at sixteen K.
+
+00:02:12.861 --> 00:02:18.669
+The block-sparse variant reached sixty-three point one percent
+on Path-256 at sixty-four K.
+
+00:02:19.319 --> 00:02:21.889
+Dense attention still does pairwise work.
+
+00:02:21.889 --> 00:02:27.431
+Change where the intermediate results live, and the same
+calculation can become much cheaper to run.
