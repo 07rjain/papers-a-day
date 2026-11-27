@@ -1,0 +1,36 @@
+# Can a model remember without rereading?
+Imagine hearing a phone number in a noisy room.
+You keep the digits while letting the background chatter pass.
+Can a sequence model learn which pieces of its input to keep?
+
+# Setup · One running state
+In the Transformer, each new position can compare itself with earlier positions.
+Across the whole sequence, the number of comparisons grows quadratically.
+A state space model carries a running summary.
+At each step, it scales the old state, adds a contribution from the current token, and reads an output from the updated state.
+The memory is the same size after ten tokens or ten thousand.
+
+# 1 · Let the token control memory
+Mamba makes three quantities depend on the current token.
+Delta controls how far the dynamics advance. In this decay example, a small delta preserves more of the old state.
+B controls what the input writes. C controls what the output reads.
+When filler arrives, the state can barely change. When a useful token arrives, it can update.
+On the paper's synthetic selective copying task, Mamba scored ninety-nine point eight percent.
+
+# 2 · Compose updates in parallel
+How can a GPU parallelize an update that needs the preceding state?
+Each token specifies a transformation: multiply the incoming state, then add a value.
+Two adjacent transformations can be combined into one.
+Because grouping them differently gives the same result, a parallel prefix scan can build the transformation up to every position.
+At fixed state size, the total work grows linearly with the number of tokens.
+The groups stay in sequence order. Combining a pair means applying its first update before its second.
+
+# 3 · Keep the working state on chip
+Mamba fuses the conversion to discrete updates, the scan, and the output projection inside fast on-chip memory.
+It sends the outputs back to main GPU memory and rebuilds the expanded states during the backward pass.
+This uses the same memory traffic insight as Flash Attention.
+In the authors' benchmark, Mamba reached four to five times the generation throughput of a similarly sized Transformer, helped by larger batches.
+Without a key value cache that grows with the prompt, more sequences fit in the same memory.
+
+# Lesson · Make the running state selective
+Mamba learns what to retain, write, and read, then uses a hardware-aware scan to compute that memory efficiently.

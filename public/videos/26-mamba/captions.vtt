@@ -1,0 +1,95 @@
+WEBVTT
+
+00:00:00.000 --> 00:00:02.802
+Imagine hearing a phone number in a noisy room.
+
+00:00:02.802 --> 00:00:05.906
+You keep the digits while letting the background chatter pass.
+
+00:00:05.906 --> 00:00:09.369
+Can a sequence model learn which pieces of its input to keep?
+
+00:00:10.019 --> 00:00:14.888
+In the Transformer, each new position can compare itself with
+earlier positions.
+
+00:00:14.888 --> 00:00:19.187
+Across the whole sequence, the number of comparisons grows
+quadratically.
+
+00:00:19.187 --> 00:00:21.885
+A state space model carries a running summary.
+
+00:00:21.885 --> 00:00:29.366
+At each step, it scales the old state, adds a contribution from
+the current token, and reads an output from the updated state.
+
+00:00:29.366 --> 00:00:33.166
+The memory is the same size after ten tokens or ten thousand.
+
+00:00:33.816 --> 00:00:36.943
+Mamba makes three quantities depend on the current token.
+
+00:00:36.943 --> 00:00:43.669
+Delta controls how far the dynamics advance. In this decay
+example, a small delta preserves more of the old state.
+
+00:00:43.669 --> 00:00:48.027
+B controls what the input writes. C controls what the output
+reads.
+
+00:00:48.027 --> 00:00:53.696
+When filler arrives, the state can barely change. When a useful
+token arrives, it can update.
+
+00:00:53.696 --> 00:00:59.354
+On the paper's synthetic selective copying task, Mamba scored
+ninety-nine point eight percent.
+
+00:01:00.004 --> 00:01:03.955
+How can a GPU parallelize an update that needs the preceding
+state?
+
+00:01:03.955 --> 00:01:09.532
+Each token specifies a transformation: multiply the incoming
+state, then add a value.
+
+00:01:09.532 --> 00:01:12.659
+Two adjacent transformations can be combined into one.
+
+00:01:12.659 --> 00:01:19.699
+Because grouping them differently gives the same result, a
+parallel prefix scan can build the transformation up to every
+position.
+
+00:01:19.699 --> 00:01:24.346
+At fixed state size, the total work grows linearly with the
+number of tokens.
+
+00:01:24.346 --> 00:01:29.946
+The groups stay in sequence order. Combining a pair means
+applying its first update before its second.
+
+00:01:30.596 --> 00:01:37.613
+Mamba fuses the conversion to discrete updates, the scan, and
+the output projection inside fast on-chip memory.
+
+00:01:37.613 --> 00:01:43.607
+It sends the outputs back to main GPU memory and rebuilds the
+expanded states during the backward pass.
+
+00:01:43.607 --> 00:01:47.094
+This uses the same memory traffic insight as Flash Attention.
+
+00:01:47.094 --> 00:01:55.260
+In the authors' benchmark, Mamba reached four to five times the
+generation throughput of a similarly sized Transformer, helped
+by larger batches.
+
+00:01:55.260 --> 00:02:00.500
+Without a key value cache that grows with the prompt, more
+sequences fit in the same memory.
+
+00:02:01.150 --> 00:02:08.189
+Mamba learns what to retain, write, and read, then uses a
+hardware-aware scan to compute that memory efficiently.

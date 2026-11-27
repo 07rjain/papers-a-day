@@ -124,6 +124,11 @@ export const keyIdeas: Record<string, string[]> = {
     "Online softmax rescales earlier contributions when the row maximum changes.",
     "Rebuilding tiles during backpropagation keeps saved attention storage linear in sequence length at fixed head dimension. Dense pairwise work remains quadratic.",
   ],
+  "26-mamba": [
+    "The current token sets Δ, B, and C, changing retention, writing, and readout in a fixed-size recurrent state.",
+    "Affine updates compose associatively, so a prefix scan can compute the whole sequence in parallel with linear work.",
+    "A fused kernel keeps expanded intermediate states on chip and recomputes them for gradients.",
+  ],
 };
 
 /** What each paper takes from the one before it on the reading path. The first paper starts the path. */
@@ -185,6 +190,7 @@ export const pathLinks: { slug: string; buildsOn: string | null }[] = [
   },
   { slug: "24-llama-2", buildsOn: "Chinchilla (paper 11) on pretraining data, InstructGPT (paper 10) on human feedback, and Constitutional AI (paper 21) on balancing helpfulness and safety" },
   { slug: "25-flashattention", buildsOn: "the Transformer (paper 5) and GPT-style causal attention, with applications to longer-context language model training" },
+  { slug: "26-mamba", buildsOn: "the Transformer (paper 5), Mixtral and Llama 2 (papers 22 and 24), and FlashAttention’s on-chip memory strategy (paper 25), now applied to recurrent updates" },
 ];
 
 export const glossary: { id: string; term: string; definition: string }[] = [
@@ -382,4 +388,9 @@ export const glossary: { id: string; term: string; definition: string }[] = [
   { id: "online-softmax", term: "Online softmax", definition: "Compute softmax across chunks by updating the maximum and rescaling the running exponential sum as scores arrive." },
   { id: "recomputation", term: "Recomputation", definition: "Rebuild an intermediate when needed instead of retaining it. FlashAttention rebuilds probability tiles for gradients." },
   { id: "block-sparse-attention", term: "Block-sparse attention", definition: "Compute selected tiles of the attention matrix and mask out the others. The resulting attention follows that sparse pattern." },
+  { id: "state-space-model", term: "State space model (SSM)", definition: "A model that updates a hidden state from inputs and reads outputs from that state." },
+  { id: "discretization", term: "Discretization", definition: "Converting continuous dynamics into updates at discrete positions. In Mamba, the input-dependent step size Δ helps set each update." },
+  { id: "selective-state", term: "Selective state space model", definition: "A state space model whose current input changes how it retains, writes, and reads information." },
+  { id: "parallel-prefix-scan", term: "Parallel prefix scan", definition: "Compute a combined result up to every position by grouping operations in parallel. Mamba combines affine state updates in sequence order." },
+  { id: "kernel-fusion", term: "Kernel fusion", definition: "Combine GPU operations so their intermediate values can stay in fast local memory between steps." },
 ];
