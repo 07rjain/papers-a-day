@@ -1,0 +1,116 @@
+WEBVTT
+
+00:00:00.000 --> 00:00:05.422
+Imagine four boxes with six pencils each. Seven
+pencils are given away. How many are left?
+
+00:00:05.812 --> 00:00:08.592
+A language model could guess a number immediately.
+What changes
+
+00:00:08.592 --> 00:00:11.373
+if we give it room to work through the problem?
+
+00:00:11.763 --> 00:00:13.912
+Earlier chain-of-thought prompting showed the model
+
+00:00:13.912 --> 00:00:16.419
+worked examples before asking a new question.
+
+00:00:16.809 --> 00:00:21.035
+Kojima and colleagues tried a shorter prompt that
+needs no demonstrations.
+
+00:00:21.425 --> 00:00:26.812
+Keep the question and add one sentence at the start
+of the answer: Let's think step by step.
+
+00:00:27.202 --> 00:00:30.406
+The first model call continues that sentence. In this
+
+00:00:30.406 --> 00:00:33.610
+example, it multiplies four by six to get
+twenty-four.
+
+00:00:34.000 --> 00:00:36.769
+Then it subtracts seven to get seventeen. That
+
+00:00:36.769 --> 00:00:39.538
+whole continuation becomes part of the second prompt.
+
+00:00:39.928 --> 00:00:43.002
+The second call sees the original prompt, the
+generated
+
+00:00:43.002 --> 00:00:46.418
+working, and a cue asking for the answer in numerals.
+
+00:00:46.808 --> 00:00:49.467
+The experiment then parses the completion into a
+
+00:00:49.467 --> 00:00:52.126
+scoreable answer. Both calls use the same model.
+
+00:00:52.516 --> 00:00:56.103
+On MultiArith, text davinci zero zero two scored
+
+00:00:56.103 --> 00:00:59.690
+seventeen point seven percent with direct zero-shot
+prompting.
+
+00:01:00.080 --> 00:01:03.325
+Let's think step by step raised it to seventy-eight
+
+00:01:03.325 --> 00:01:06.930
+point seven. Let's think by itself scored fifty-seven
+point five.
+
+00:01:07.320 --> 00:01:10.403
+Even First, followed by a comma, reached
+
+00:01:10.403 --> 00:01:13.926
+seventy-seven point three. Abrakadabra scored fifteen
+point five.
+
+00:01:14.316 --> 00:01:18.902
+Wording mattered in this experiment, and several
+different cues could start useful working.
+
+00:01:19.292 --> 00:01:22.122
+On GSM eight K, the eight-billion-parameter PaLM went
+
+00:01:22.122 --> 00:01:25.306
+from two point one to two point four percent.
+
+00:01:25.696 --> 00:01:30.294
+The five-hundred-forty-billion-parameter model went
+from twelve point five to forty-three.
+
+00:01:30.684 --> 00:01:34.332
+For that larger model, sampling forty reasoning paths
+and voting on
+
+00:01:34.332 --> 00:01:38.312
+their final answers pushed GSM eight K accuracy to
+seventy point one.
+
+00:01:38.701 --> 00:01:41.842
+The gains varied by task. On Commonsense Q A,
+
+00:01:41.842 --> 00:01:44.982
+text davinci scored lower with the extra reasoning
+prompt.
+
+00:01:45.372 --> 00:01:48.115
+A short instruction can make a capable model
+
+00:01:48.115 --> 00:01:51.201
+write useful intermediate steps before committing to
+an answer.
+
+00:01:51.591 --> 00:01:54.371
+Check the final answer on the task you care
+
+00:01:54.371 --> 00:01:57.152
+about. A clear-looking explanation can still contain
+a mistake.
