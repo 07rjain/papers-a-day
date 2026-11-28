@@ -1,0 +1,30 @@
+# Can one sentence improve reasoning?
+Imagine four boxes with six pencils each. Seven pencils are given away. How many are left?
+A language model could guess a number immediately. What changes if we give it room to work through the problem?
+
+# Setup · From examples to an instruction
+Earlier chain-of-thought prompting showed the model worked examples before asking a new question.
+Kojima and colleagues tried a shorter prompt that needs no demonstrations.
+Keep the question and add one sentence at the start of the answer: Let's think step by step.
+
+# 1 · Generate the reasoning, then extract the answer
+The first model call continues that sentence. In this example, it multiplies four by six to get twenty-four.
+Then it subtracts seven to get seventeen. That whole continuation becomes part of the second prompt.
+The second call sees the original prompt, the generated working, and a cue asking for the answer in numerals.
+The experiment then parses the completion into a scoreable answer. Both calls use the same model.
+
+# 2 · The wording matters
+On MultiArith, text davinci zero zero two scored seventeen point seven percent with direct zero-shot prompting.
+Let's think step by step raised it to seventy-eight point seven. Let's think by itself scored fifty-seven point five.
+Even First, followed by a comma, reached seventy-seven point three. Abrakadabra scored fifteen point five.
+Wording mattered in this experiment, and several different cues could start useful working.
+
+# 3 · Larger models made better use of the cue
+On GSM eight K, the eight-billion-parameter PaLM went from two point one to two point four percent.
+The five-hundred-forty-billion-parameter model went from twelve point five to forty-three.
+For that larger model, sampling forty reasoning paths and voting on their final answers pushed GSM eight K accuracy to seventy point one.
+The gains varied by task. On Commonsense Q A, text davinci scored lower with the extra reasoning prompt.
+
+# Lesson · Give the model room to work
+A short instruction can make a capable model write useful intermediate steps before committing to an answer.
+Check the final answer on the task you care about. A clear-looking explanation can still contain a mistake.

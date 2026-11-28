@@ -129,6 +129,11 @@ export const keyIdeas: Record<string, string[]> = {
     "Affine updates compose associatively, so a prefix scan can compute the whole sequence in parallel with linear work.",
     "A fused kernel keeps expanded intermediate states on chip and recomputes them for gradients.",
   ],
+  "27-zero-shot-cot": [
+    "A general cue can elicit written reasoning with zero demonstrations.",
+    "The first call generates working. The second call receives the original prompt, the working, and a cue for the final answer format.",
+    "The gains depended on model, task, and wording. On MultiArith, text-davinci-002 went from 17.7% to 78.7%.",
+  ],
 };
 
 /** What each paper takes from the one before it on the reading path. The first paper starts the path. */
@@ -191,9 +196,13 @@ export const pathLinks: { slug: string; buildsOn: string | null }[] = [
   { slug: "24-llama-2", buildsOn: "Chinchilla (paper 11) on pretraining data, InstructGPT (paper 10) on human feedback, and Constitutional AI (paper 21) on balancing helpfulness and safety" },
   { slug: "25-flashattention", buildsOn: "the Transformer (paper 5) and GPT-style causal attention, with applications to longer-context language model training" },
   { slug: "26-mamba", buildsOn: "the Transformer (paper 5), Mixtral and Llama 2 (papers 22 and 24), and FlashAttention’s on-chip memory strategy (paper 25), now applied to recurrent updates" },
+  { slug: "27-zero-shot-cot", buildsOn: "few-shot chain of thought (paper 14), replacing worked examples with a cue, and self-consistency (paper 15), voting across sampled chains" },
 ];
 
 export const glossary: { id: string; term: string; definition: string }[] = [
+  { id: "zero-shot-cot", term: "Zero-shot chain of thought", definition: "Prompting a model to write intermediate reasoning without showing any worked examples." },
+  { id: "reasoning-extraction", term: "Reasoning extraction", definition: "The first Zero-shot-CoT model call, which continues a question and a reasoning cue with written working." },
+  { id: "answer-extraction", term: "Answer extraction", definition: "Prompting for a final answer in the required format. In Zero-shot-CoT, this call includes the original prompt and the generated working." },
   { id: "gqa", term: "Grouped-query attention", definition: "Several query heads share each set of key and value heads, reducing the cache needed for generation." },
   { id: "ghost-attention", term: "Ghost Attention", definition: "A fine-tuning method that teaches later replies to follow an instruction shown at the start of a conversation." },
   { id: "false-refusal", term: "False refusal", definition: "A refusal to answer a request that could safely be answered." },
